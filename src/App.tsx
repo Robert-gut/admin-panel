@@ -1,9 +1,11 @@
 import './App.css'
 
-function App() {
-
+const App = () => {
   return (
-    <h1>Team</h1> 
+      <>
+        <h1>Team</h1>
+        <h3>Tkachuk Oleksandr</h3>
+      </>
   )
 }
 
