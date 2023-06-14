@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <h1>Team</h1> 
-      <h3>Ivan Yakovchuk</h3>
+      <h2>Nazar's work</h2>
     </>
   )
 }
