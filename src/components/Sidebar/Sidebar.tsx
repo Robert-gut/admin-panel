@@ -60,7 +60,7 @@ export default function Sidebar() {
           },
         })}
       >
-        <Paper elevation={0} sx={{ maxWidth: 356 }}>
+        <Paper elevation={0} sx={{ maxWidth: '100%' }}>
           <FireNav component="nav" disablePadding>
             <ListItemButton component="a" href="#customized-list">
               <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
