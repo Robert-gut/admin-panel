@@ -17,6 +17,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
 import { Link } from 'react-router-dom'
+import './Navbar.css'
+
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -31,8 +34,6 @@ const Search = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
     width: 'auto',
-  },
-  '&:focus-within': {
     borderBottom: `2px solid ${theme.palette.primary.main}`,
     borderRadius: '0px'
   },
@@ -104,20 +105,14 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to='/admin'>
-          Profile
-        </Link>
+      <MenuItem onClick={handleMenuClose} component={Link} to={'/admins'}>
+        Profile {/* З допомогою component підключаємо Link і автоматично скидуються стилі, такі як підкреслювання чи колір після нажимання  */}
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to='/admin'>
-          My account
-        </Link>
+      <MenuItem onClick={handleMenuClose} component={Link} to={'/admins'}>
+        My account
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to='/admin'>
-          Logout
-        </Link>
+      <MenuItem onClick={handleMenuClose} component={Link} to={'/admins'}>
+        Logout
       </MenuItem>
     </Menu>
   );
@@ -194,10 +189,13 @@ export default function Navbar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
+            <MenuItem onClick={handleMenuClose} 
+              component={Link} to={'/admin'}  
+              sx={{ fontSize: '1.5rem' }} 
+            > 
+              Dasboard
+            </MenuItem>
 
-          <Link to='/admin'>
-            Dasboard
-          </Link>
 
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
