@@ -10,11 +10,11 @@ export default function Admin() {
   return (
 
     <Box sx={{ height: '100vh' }}>
-      <Grid container spacing={2} sx={{ height: '100%' }}>
-        <Grid item xs={3} >
+      <Grid container spacing={0} sx={{ height: '100%' }}>
+        <Grid item xs={2} >
           <Sidebar/>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={10}>
           <Navbar/>
           <h1>Admin</h1>
         </Grid>
