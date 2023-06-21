@@ -6,24 +6,11 @@
     align-items: center;
     justify-items: center;
     color: #333;
+    position: relative;
+    background-color: whitesmoke;
 }
 
-.left {
-  left: 25px;
-}
 
-.right {
-  right: 25px;
-}
-
-.center {
-  text-align: center;
-}
-
-.bottom {
-  position: absolute;
-  bottom: 25px;
-}
 
 #gradient {
   background: #999955;
@@ -42,36 +29,29 @@
   margin-top: -67.5px;
   margin-left: -270px;
   padding-left: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   width: 520px;
   height: 395px;
-  z-index: -1;
+  z-index: 1;
 }
 
 #card {
+    border-radius: 15px;
+
   position: absolute;
   width: 450px;
   height: 340px;
   padding: 25px;
   padding-top: 0;
   padding-bottom: 0;
-  left: 50%;
-  top: 67.5px;
+  left: 51.3%;
+  top: 385px;
   margin-left: -250px;
   background: #E9E2D0;
   box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
   z-index: 5;
 }
 
-#card img {
-  width: 150px;
-  float: left;
-  border-radius: 5px;
-  margin-right: 20px;
-  -webkit-filter: sepia(1);
-  -moz-filter: sepia(1);
-  filter: sepia(1);
-}
 
 #card h2 {
   font-family: courier;
