@@ -9,7 +9,6 @@ import Login from "./pages/Login/Login";
 import ForgotPassword from "./pages/Login/ForgotPassword/ForgotPassword";
 import TestAuth from "./pages/TestAuth/TestAuth";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 
 

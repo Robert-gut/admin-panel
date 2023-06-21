@@ -5,6 +5,7 @@ import Userslist from "../UsersList/UsersList";
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Profile from "../Profile/proflle";
 
 
 export default function Admin() {
@@ -17,6 +18,7 @@ export default function Admin() {
         <Grid item xs={10}>
           <Navbar/>
           <Userslist />
+          <Profile/>
           <h1>Admin</h1>
         </Grid>
       </Grid>
