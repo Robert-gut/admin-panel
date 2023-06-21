@@ -52,6 +52,7 @@ export default function Sidebar() {
           elevation={0} 
           sx={{ maxWidth: 356, minWidth: 250, height: '100%' }}
         >
+
           <FireNav component="nav" disablePadding>
             <ListItemButton component="a" 
               href="#customized-list"
