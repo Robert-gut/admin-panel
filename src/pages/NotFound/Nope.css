@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Monoton&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
+
+.ebox {
+    display: grid;
+    place-items: center;
+}
+
+.eitem {
+    margin-top: 90px;
+    padding: 40px;
+    font-size: 95px;
+    font-family: "Monoton", cursive;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 0 80px red, 0 0 30px FireBrick, 0 0 6px DarkRed;
+    color: red;
+}
+
+.eitem p {
+    margin: 5px;
+}
+
+#error:hover {
+    text-shadow: 0 0 200px #ffffff, 0 0 80px #008000, 0 0 6px #0000ff;
+}
+
+#code:hover {
+    text-shadow: 0 0 100px red, 0 0 40px FireBrick, 0 0 8px DarkRed;
+}
+
+#error {
+    color: #fff;
+    text-shadow: 0 0 80px #ffffff, 0 0 30px #008000, 0 0 6px #0000ff;
+}
+
+#error span {
+    animation: upper 6s linear infinite;
+}
+
+#code span:nth-of-type(2) {
+    animation: lower 9s linear infinite;
+}
+
+#code span:nth-of-type(1) {
+    text-shadow: none;
+    opacity: 0.4;
+}
+
+
+.btn-from-error {
+    font-weight: 700;
+    font-size: inherit;
+    line-height: 1.75;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Exo 2', sans-serif;
+    min-width: 64px;
+    padding: 5px 15px;
+
+    border: none;
+        
+    padding: 25px 80px;
+    display: inline-block;
+    margin: 15px 30px;
+        
+    outline: none;
+    background: none;
+    border: 2px solid FireBrick;
+    border-radius: 4px;
+
+    cursor: pointer;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    animation: lower 9s linear infinite;
+}
+
+.btn-from-error:hover {
+    /* background: red; */
+
+    text-shadow: 0 0 100px red, 0 0 40px FireBrick, 0 0 8px DarkRed;
+    box-shadow: 0 0 80px red, 0 0 30px FireBrick, 0 0 6px DarkRed;
+    border: 2px solid red;
+    animation: none;
+}
+
+.btn-from-error:focus {
+    background-color: red;
+    transform: scale(0.98);
+}
+
+.btn-from-error:disabled {
+    animation: none;
+    border: 2px solid #817d7d;
+}
+
+@keyframes upper {
+
+    0%,
+    19.999%,
+    22%,
+    62.999%,
+    64%,
+    64.999%,
+    70%,
+    100% {
+        opacity: 0.99;
+        text-shadow: 0 0 80px #ffffff, 0 0 30px #008000, 0 0 6px #0000ff;
+    }
+
+    20%,
+    21.999%,
+    63%,
+    63.999%,
+    65%,
+    69.999% {
+        opacity: 0.4;
+        text-shadow: none;
+    }
+}
+
+@keyframes lower {
+
+    0%,
+    12%,
+    18.999%,
+    23%,
+    31.999%,
+    37%,
+    44.999%,
+    46%,
+    49.999%,
+    51%,
+    58.999%,
+    61%,
+    68.999%,
+    71%,
+    85.999%,
+    96%,
+    100% {
+        opacity: 0.99;
+        text-shadow: 0 0 80px red, 0 0 30px FireBrick, 0 0 6px DarkRed;
+    }
+
+    19%,
+    22.99%,
+    32%,
+    36.999%,
+    45%,
+    45.999%,
+    50%,
+    50.99%,
+    59%,
+    60.999%,
+    69%,
+    70.999%,
+    86%,
+    95.999% {
+        opacity: 0.4;
+        text-shadow: none;
+    }
+}
