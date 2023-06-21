@@ -1,12 +1,10 @@
+
 import Sidebar from "../../components/Sidebar/Sidebar"
 import Navbar from "../../components/Navbar/Navbar"
 import Userslist from "../UsersList/UsersList";
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-
-
-
 
 
 export default function Admin() {

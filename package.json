@@ -12,11 +12,18 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.1.1",
     "@mui/icons-material": "^5.11.16",
+    "@mui/joy": "^5.0.0-alpha.84",
     "@mui/material": "^5.13.5",
+    "axios": "^1.4.0",
+    "jwt-decode": "^3.1.2",
+    "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.13.0"
+    "react-hook-form": "^7.45.0",
+    "react-router-dom": "^6.13.0",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

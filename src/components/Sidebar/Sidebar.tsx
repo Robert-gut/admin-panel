@@ -11,16 +11,17 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 
 import { data } from '../../constants/Sidebar/Sidebar'
 
+
 const FireNav = styled(List)<{ component?: React.ElementType }>({
-  '& .MuiListItemButton-root': {
+  "& .MuiListItemButton-root": {
     paddingLeft: 24,
     paddingRight: 24,
   },
-  '& .MuiListItemIcon-root': {
+  "& .MuiListItemIcon-root": {
     minWidth: 0,
     marginRight: 16,
   },
-  '& .MuiSvgIcon-root': {
+  "& .MuiSvgIcon-root": {
     fontSize: 30,
   },
 });
@@ -42,9 +43,9 @@ export default function Sidebar() {
       <ThemeProvider
         theme={createTheme({
           palette: {
-            mode: 'dark',
-            primary: { main: 'rgb(102, 157, 246)' },
-            background: { paper: 'rgb(5, 30, 52)' },
+            mode: "dark",
+            primary: { main: "rgb(102, 157, 246)" },
+            background: { paper: "rgb(5, 30, 52)" },
           },
         })}
       >
@@ -67,7 +68,7 @@ export default function Sidebar() {
                 primary="Firebash"
                 primaryTypographyProps={{
                   fontSize: 20,
-                  fontWeight: 'medium',
+                  fontWeight: "medium",
                   letterSpacing: 0,
                   mb: '2px',
                   position: 'relative',
@@ -82,6 +83,7 @@ export default function Sidebar() {
                 }}
                 sx={{ my: 0 }}
               />
+
               <KeyboardArrowDown
                 sx={{
                   mr: -1,
@@ -101,7 +103,7 @@ export default function Sidebar() {
                     selected={selectedIndex === item.id}
                     onClick={(event) => handleListItemClick(event, item.id)}
                   >
-                    <ListItemIcon sx={{ color: 'inherit' }}>
+                    <ListItemIcon sx={{ color: "inherit" }}>
                       {item.icon}
                     </ListItemIcon>
                     <ListItemText 
