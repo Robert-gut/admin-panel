@@ -3,6 +3,7 @@ import './App.css'
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Admin from './pages/Admin/Admin'
+import Profile from "./pages/Profile/proflle.tsx";
 
 function App() {
 
@@ -12,6 +13,11 @@ function App() {
         <Route path='/admin' element={<Admin/>}>
           <Route path='profile' element={<Admin/>}/>
         </Route>
+
+          <Route path='/profile' element={<Profile/>}>
+          <Route path='profile' element={<Profile/>}/>
+        </Route>
+
       </Routes>
     </Router>
   )
