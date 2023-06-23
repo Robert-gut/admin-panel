@@ -1,5 +1,4 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@mui/material/styles';
+import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
@@ -14,27 +13,20 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    appBar: {
-      position: 'relative',
-    },
-    title: {
-      marginLeft: theme.spacing(2),
-      flex: 1,
-    },
-  }),
-);
+
+import TextField from './TextField'
+import SnackBar from './SnackBar'
 
 const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement },
+  props: TransitionProps & {
+    children: React.ReactElement;
+  },
   ref: React.Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog() {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -47,32 +39,47 @@ export default function FullScreenDialog() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open full-screen dialog
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Edit User
       </Button>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-        <AppBar className={classes.appBar}>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
               <CloseIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Sound
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              едагування
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
-              save
+              Зберегти
             </Button>
           </Toolbar>
         </AppBar>
-        <List>
+        <TextField/>
+        {/* <List>
           <ListItem button>
             <ListItemText primary="Phone ringtone" secondary="Titania" />
           </ListItem>
           <Divider />
           <ListItem button>
-            <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+            <ListItemText
+              primary="Default notification ringtone"
+              secondary="Tethys"       
+            />
           </ListItem>
-        </List>
+
+        </List> */}
       </Dialog>
     </div>
   );
