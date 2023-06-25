@@ -8,11 +8,7 @@ import Admin from "./pages/Admin/Admin";
 import Login from "./pages/Login/Login";
 import ForgotPassword from "./pages/Login/ForgotPassword/ForgotPassword";
 import TestAuth from "./pages/TestAuth/TestAuth";
-
-
-
-
-        
+ 
 function App() {
   return (
     <Router>
