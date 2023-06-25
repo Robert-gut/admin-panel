@@ -8,8 +8,6 @@ import Grid from '@mui/material/Grid';
 import Profile from "../Profile/proflle";
 
 import UpdateUserEdit from "../../components/pages/UpdateUserEdit/UpdateUserEdit"
-import SnackBar from "../../components/pages/UpdateUserEdit/SnackBar"
-
 
 export default function Admin() {
 
@@ -24,7 +22,6 @@ export default function Admin() {
           <Userslist />
           <Profile/>
           <UpdateUserEdit/>
-          <SnackBar/>
           <h1>Admin</h1>
         </Grid>
       </Grid>
