@@ -7,27 +7,23 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Profile from "../Profile/proflle";
 
-import './adm.css'
 export default function Admin() {
   return (
     <Box sx={{ height: '100vh' }}>
-      <Grid container direction="row" wrap="nowrap" sx={{ height: '100%', maxHeight: '100vh'}}>
+      <Grid container direction="row" wrap="nowrap" sx={{ height: '100%', maxHeight: '100vh' }}>
         <Grid item xs="auto">
-          <div style={{border: '1px solid red'}}>
-            <Sidebar />
-          </div>
+          <Sidebar />
         </Grid>
         <Grid item xs container direction="column" >
-          <Grid item xs={1}>
+          <Grid item xs="auto">
             <Navbar/>
           </Grid>
-          <Grid item xs="auto">
+          <Grid item xs container direction="column" wrap="nowrap" style={{ overflowY: 'scroll' }}>
             <Userslist />
-            <Userslist />
-            {/* <Profile/> */}
+            <Profile/>
             {/* <h1>Admin</h1> */}
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs="auto">
             <div>footer</div>
           </Grid>
         </Grid>
