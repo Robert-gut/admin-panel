@@ -8,9 +8,11 @@ import Admin from "./pages/Admin/Admin";
 import Login from "./pages/Login/Login";
 import ForgotPassword from "./pages/Login/ForgotPassword/ForgotPassword";
 import TestAuth from "./pages/TestAuth/TestAuth";
+import Footer from './components/Footer/Footer'
  
 function App() {
   return (
+    <>
     <Router>
       <Routes>
         <Route path='*' element={<Nope/>} />
@@ -23,6 +25,8 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    <Footer/>
+    </>
   );
 }
 

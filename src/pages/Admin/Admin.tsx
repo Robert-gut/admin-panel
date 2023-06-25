@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Profile from "../Profile/proflle";
 
-
 export default function Admin() {
   return (
     <Box sx={{ height: '100vh' }}>
