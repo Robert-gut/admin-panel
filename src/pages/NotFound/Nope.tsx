@@ -3,7 +3,7 @@ import "./Nope.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Nope = () => 
+const Nope = () => 
 {
   const [disabled, setDisable] = useState(false);
   const navigate = useNavigate();
@@ -35,3 +35,5 @@ export const Nope = () =>
     </div>
   );
 };
+
+export default Nope
