@@ -25,7 +25,7 @@ export default function Admin() {
           <Grid item xs container direction="column" wrap="nowrap" style={{ overflowY: 'scroll' }}>
             <Userslist />
             <Profile/>
-            <UpdateUserEdit/>
+            {/* <UpdateUserEdit/> */}
             {/* <h1>Admin</h1> */}
           </Grid>
           <Grid item xs="auto">
