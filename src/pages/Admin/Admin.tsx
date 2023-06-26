@@ -7,6 +7,7 @@ import Userslist from "../UsersList/UsersList";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Profile from "../Profile/proflle";
+import Footer from '../../components/Footer/Footer'
 
 export default function Admin() {
 
@@ -27,7 +28,7 @@ export default function Admin() {
             {/* <h1>Admin</h1> */}
           </Grid>
           <Grid item xs="auto">
-            <div>footer</div>
+            <Footer/>
           </Grid>
         </Grid>
       </Grid>
