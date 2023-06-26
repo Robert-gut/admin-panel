@@ -25,7 +25,6 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
 
 export default function Sidebar(props) {
   const { routes } = props;
-
   const [selectedIndex, setSelectedIndex] = React.useState('dashboard');
 
   const handleListItemClick = (
@@ -51,11 +50,12 @@ export default function Sidebar(props) {
         >
           <FireNav component="nav" disablePadding>
             <ListItemButton>
-              <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
+              <ListItemIcon sx={{ fontSize: 25 }}>🔥</ListItemIcon>
               <ListItemText
                 primary="Admin Panel"
                 primaryTypographyProps={{
-                  fontSize: 20,
+                  fontSize: 25,
+                  textTransform: 'uppercase',
                 }}
               />
             </ListItemButton>
@@ -75,7 +75,7 @@ export default function Sidebar(props) {
                     </ListItemIcon>
                     <ListItemText 
                       primary={item.name} 
-                      primaryTypographyProps={{ fontSize: 16, fontWeight: 'medium' }} 
+                      primaryTypographyProps={{ fontSize: 19, textTransform: 'uppercase', }} 
                     />
                   </ListItemButton>
                 ))}
