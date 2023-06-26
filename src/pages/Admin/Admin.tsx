@@ -1,6 +1,6 @@
 
 import Sidebar from "../../components/Sidebar/Sidebar"
-import UpdateUserEdit from "../../components/pages/UpdateUserEdit/UpdateUserEdit"
+import UpdateUserEdit from "../UsersList/UpdateUserEdit/UpdateUserEdit"
 import Navbar from "../../components/Navbar/Navbar"
 import Userslist from "../UsersList/UsersList";
 
