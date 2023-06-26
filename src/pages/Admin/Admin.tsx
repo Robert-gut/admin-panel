@@ -7,8 +7,10 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Profile from "../Profile/proflle";
 
+import UpdateUserEdit from "../../components/pages/UpdateUserEdit/UpdateUserEdit"
 
 export default function Admin() {
+
   return (
     <Box sx={{ height: '100vh' }}>
       <Grid container spacing={0} sx={{ height: '100%' }}>
@@ -19,6 +21,7 @@ export default function Admin() {
           <Navbar/>
           <Userslist />
           <Profile/>
+          <UpdateUserEdit/>
           <h1>Admin</h1>
         </Grid>
       </Grid>
