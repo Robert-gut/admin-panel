@@ -7,10 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-
-import { data } from '../../constants/Sidebar/Sidebar'
-
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
@@ -26,7 +22,7 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
   },
 });
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const [selectedIndex, setSelectedIndex] = React.useState('dashboard');
 
   const handleListItemClick = (
@@ -35,8 +31,6 @@ export default function Sidebar() {
   ) => {
     setSelectedIndex(id);
   };
-
-  const [open, setOpen] = React.useState(true);
 
   return (
     <Box sx={{ height: '100%' }}>
@@ -50,55 +44,23 @@ export default function Sidebar() {
         })}
       >
         <Paper 
-          elevation={0} 
           sx={{ maxWidth: 356, minWidth: 250, height: '100%' }}
         >
-
           <FireNav component="nav" disablePadding>
-            <ListItemButton component="a" 
-              href="#customized-list"
-              onClick={() => setOpen(!open)}
-              sx={{
-                p: '3 0 3',
-                '&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
-              }}
-            >
+            <ListItemButton>
               <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
               <ListItemText
-                primary="Firebash"
+                primary="Admin Panel"
                 primaryTypographyProps={{
                   fontSize: 20,
-                  fontWeight: "medium",
-                  letterSpacing: 0,
-                  mb: '2px',
-                  position: 'relative',
-                  top: open ? '10px' : 0
-                }}
-                secondary={data.map(({label}) => label).join(', ')}
-                secondaryTypographyProps={{
-                  noWrap: true,
-                  fontSize: 12,
-                  lineHeight: '16px',
-                  color: open ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.5)',
-                }}
-                sx={{ my: 0 }}
-              />
-
-              <KeyboardArrowDown
-                sx={{
-                  mr: -1,
-                  opacity: 0,
-                  transform: open ? 'rotate(-180deg)' : 'rotate(0)',
-                  transition: '0.2s',
                 }}
               />
             </ListItemButton>
             <Divider />
             <Box>
-              {open &&
-                data.map((item) => (
+              {props.routes.map((item) => (
                   <ListItemButton
-                    key={item.label}
+                    key={item.name}
                     sx={{ py: 0, minHeight: 50, color: 'rgba(255,255,255,.8)' }}
                     selected={selectedIndex === item.id}
                     onClick={(event) => handleListItemClick(event, item.id)}
@@ -107,7 +69,7 @@ export default function Sidebar() {
                       {item.icon}
                     </ListItemIcon>
                     <ListItemText 
-                      primary={item.label} 
+                      primary={item.name} 
                       primaryTypographyProps={{ fontSize: 16, fontWeight: 'medium' }} 
                     />
                   </ListItemButton>
