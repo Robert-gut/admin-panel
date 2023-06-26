@@ -1,8 +1,15 @@
 
+<<<<<<< HEAD:src/pages/Admin/Admin.tsx
+import Sidebar from "../../components/Sidebar/Sidebar"
+import UpdateUserEdit from "../UsersList/UpdateUserEdit/UpdateUserEdit"
+import Navbar from "../../components/Navbar/Navbar"
+import Userslist from "../UsersList/UsersList";
+=======
 import Sidebar from "../components/Sidebar/Sidebar"
 // import UpdateUserEdit from "../components/pages/UpdateUserEdit/UpdateUserEdit"
 import Navbar from "../components/Navbar/Navbar"
 import Userslist from "../pages/UsersList/UsersList";
+>>>>>>> DEV:src/layouts/Admin.tsx
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
