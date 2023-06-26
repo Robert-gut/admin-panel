@@ -14,8 +14,9 @@ import Userslist from "../pages/UsersList/UsersList";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Profile from "../pages/Profile/proflle";
-
+import Footer from '../components/Footer/Footer'
 import { routes } from "../routes";
+
 
 export default function Admin() {
 
@@ -36,7 +37,7 @@ export default function Admin() {
             {/* <h1>Admin</h1> */}
           </Grid>
           <Grid item xs="auto">
-            <div>footer</div>
+            <Footer/>
           </Grid>
         </Grid>
       </Grid>
