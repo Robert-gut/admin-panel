@@ -58,8 +58,8 @@ export default function AlertDialogSlide() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} type='submit'>Відмінити</Button>
-          <Button onClick={handleGood} type='submit'>Зберегти</Button>
+          <Button onClick={handleClose} type='submit' color="error">Відмінити</Button>
+          <Button onClick={handleGood} type='submit' sx={{ color: '#00e676' }}>Зберегти</Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import { useForm } from 'react-hook-form';
-import { Button, Container, Grid, TextField } from '@mui/material';
+import { Container, Grid, TextField } from '@mui/material';
 
 export default function FormComponent() {
   const { handleSubmit, register } = useForm();
@@ -78,9 +78,6 @@ export default function FormComponent() {
               />
             </Grid>
           </Grid>
-          <Button type="submit" variant="contained" color="primary">
-            Submit
-          </Button>
         </Box>
       </form>
     </Container>
