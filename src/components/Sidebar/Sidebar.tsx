@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { styled, ThemeProvider, createTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
@@ -23,6 +24,8 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
 });
 
 export default function Sidebar(props) {
+  const { routes } = props;
+
   const [selectedIndex, setSelectedIndex] = React.useState('dashboard');
 
   const handleListItemClick = (
@@ -58,8 +61,10 @@ export default function Sidebar(props) {
             </ListItemButton>
             <Divider />
             <Box>
-              {props.routes.map((item) => (
+              {routes.map((item) => (
                   <ListItemButton
+                    component={Link}
+                    to={item.layout + item.path}
                     key={item.name}
                     sx={{ py: 0, minHeight: 50, color: 'rgba(255,255,255,.8)' }}
                     selected={selectedIndex === item.id}
