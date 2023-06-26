@@ -444,30 +444,6 @@ export default function EnhancedTable() {
                         </IconButton>
                         <IconButton onClick={handleOpen}>
                           <row.edit.DeleteIcon />
-                          <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                          >
-                            <Box sx={style}>
-                              <Typography
-                                id="modal-modal-title"
-                                variant="h6"
-                                component="h2"
-                              >
-                                Підтвердження видалення
-                              </Typography>
-                              <Typography
-                                id="modal-modal-description"
-                                sx={{ mt: 2 }}
-                              >
-                                Ви впевнені що бажаєте видалити користувача?
-                              </Typography>
-                              <button className="btnModal">Так</button>
-                              <button className="btnModal">Ні</button>
-                            </Box>
-                          </Modal>
                         </IconButton>
                       </TableCell>
                     </TableRow>
@@ -491,6 +467,27 @@ export default function EnhancedTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+      //!Modal
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Підтвердження видалення
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Ви впевнені що бажаєте видалити користувача?
+          </Typography>
+          <button className="btnModal">Так</button>
+          <button className="btnModal" onClick={handleClose}>
+            Ні
+          </button>
+        </Box>
+      </Modal>
+      //! Modal /
     </Box>
   );
 }
