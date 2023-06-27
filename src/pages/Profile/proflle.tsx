@@ -9,7 +9,6 @@ import {Link} from "react-router-dom";
 export default function Profile() {
   return (
           <div className={"box"}>
-
     <div className="card-container">
       <span className="pro">Admin</span>
       <div className={"av"}>
