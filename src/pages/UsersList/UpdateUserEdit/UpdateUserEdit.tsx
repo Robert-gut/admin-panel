@@ -8,6 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import TextField from './TextField'
+import IconButton from '@mui/material/IconButton';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
 const Transition = React.forwardRef(function Transition(
@@ -38,15 +40,16 @@ export default function AlertDialogSlide() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Відредагувати данні користувача
-      </Button>
+      <IconButton color="primary" onClick={handleClickOpen}>
+        <SettingsIcon />
+      </IconButton>
       <Dialog
         open={open}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        maxWidth="xl"
       >
         <DialogTitle>{"Редагування данних"}</DialogTitle>
         <DialogContent>
@@ -55,8 +58,8 @@ export default function AlertDialogSlide() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} type='submit'>Відмінити</Button>
-          <Button onClick={handleGood} type='submit'>Зберегти</Button>
+          <Button onClick={handleClose} type='submit' color="error">Відмінити</Button>
+          <Button onClick={handleGood} type='submit' sx={{ color: '#00e676' }}>Зберегти</Button>
         </DialogActions>
       </Dialog>
     </div>

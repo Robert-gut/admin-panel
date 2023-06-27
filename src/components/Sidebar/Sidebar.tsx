@@ -1,16 +1,15 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { styled, ThemeProvider, createTheme } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
 
-import { data } from '../../constants/Sidebar/Sidebar'
-
+import { IAdminRoute } from "../../routes";
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
@@ -26,20 +25,17 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
   },
 });
 
-export default function Sidebar() {
-  const [selectedIndex, setSelectedIndex] = React.useState('dashboard');
+export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
+  const [selectedIndex, setSelectedIndex] = React.useState("dashboard");
 
   const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    id: string,
+    id: string
   ) => {
     setSelectedIndex(id);
   };
 
-  const [open, setOpen] = React.useState(true);
-
   return (
-    <Box sx={{ height: '100%' }}>
+    <Box sx={{ height: "100%" }}>
       <ThemeProvider
         theme={createTheme({
           palette: {
@@ -49,69 +45,41 @@ export default function Sidebar() {
           },
         })}
       >
-        <Paper 
-          elevation={0} 
-          sx={{ maxWidth: 356, minWidth: 250, height: '100%' }}
-        >
-
+        <Paper sx={{ maxWidth: 356, minWidth: 250, height: "100%" }}>
           <FireNav component="nav" disablePadding>
-            <ListItemButton component="a" 
-              href="#customized-list"
-              onClick={() => setOpen(!open)}
-              sx={{
-                p: '3 0 3',
-                '&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
-              }}
-            >
-              <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
+            <ListItemButton>
+              <ListItemIcon sx={{ fontSize: 25 }}>🔥</ListItemIcon>
               <ListItemText
-                primary="Firebash"
+                primary="Admin Panel"
                 primaryTypographyProps={{
-                  fontSize: 20,
-                  fontWeight: "medium",
-                  letterSpacing: 0,
-                  mb: '2px',
-                  position: 'relative',
-                  top: open ? '10px' : 0
-                }}
-                secondary={data.map(({label}) => label).join(', ')}
-                secondaryTypographyProps={{
-                  noWrap: true,
-                  fontSize: 12,
-                  lineHeight: '16px',
-                  color: open ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.5)',
-                }}
-                sx={{ my: 0 }}
-              />
-
-              <KeyboardArrowDown
-                sx={{
-                  mr: -1,
-                  opacity: 0,
-                  transform: open ? 'rotate(-180deg)' : 'rotate(0)',
-                  transition: '0.2s',
+                  fontSize: 25,
+                  textTransform: "uppercase",
                 }}
               />
             </ListItemButton>
             <Divider />
             <Box>
-              {open &&
-                data.map((item) => (
-                  <ListItemButton
-                    key={item.label}
-                    sx={{ py: 0, minHeight: 50, color: 'rgba(255,255,255,.8)' }}
-                    selected={selectedIndex === item.id}
-                    onClick={(event) => handleListItemClick(event, item.id)}
-                  >
-                    <ListItemIcon sx={{ color: "inherit" }}>
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary={item.label} 
-                      primaryTypographyProps={{ fontSize: 16, fontWeight: 'medium' }} 
-                    />
-                  </ListItemButton>
-                ))}
+              {routes.map((item: IAdminRoute) => (
+                <ListItemButton
+                  component={Link}
+                  to={item.layout + item.path}
+                  key={item.name}
+                  sx={{ py: 0, minHeight: 50, color: "rgba(255,255,255,.8)" }}
+                  selected={selectedIndex === item.id}
+                  onClick={() => handleListItemClick(item.id)}
+                >
+                  <ListItemIcon sx={{ color: "inherit" }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.name}
+                    primaryTypographyProps={{
+                      fontSize: 19,
+                      textTransform: "uppercase",
+                    }}
+                  />
+                </ListItemButton>
+              ))}
             </Box>
           </FireNav>
         </Paper>
