@@ -1,0 +1,31 @@
+.main-footer {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  display: block;
+  font-size: 16px;
+  height: 100%;
+  font-weight: 500;
+  color: #d2d8e0;
+  background-color: #12293e;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #d2d8e0;
+  margin-right: 4px;
+  font-weight: bolder;
+}
+
+.right-span {
+  float: right;
+  padding: 4px;
+  background-color: #12293e;
+}
+
+.left-span {
+  float: left;
+  padding: 4px;
+  background-color: #12293e;
+  margin: auto;
+}

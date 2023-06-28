@@ -11,7 +11,7 @@ export interface IAdminRoute {
   name: string;
   component: ReactNode;
   layout: string;
-  id: number;
+  id: string;
 }
 
 export const routes: IAdminRoute[] = [
@@ -21,7 +21,7 @@ export const routes: IAdminRoute[] = [
     name: 'Profile', 
     component: <Profile/>,
     layout: '/admin',
-    id: 1,
+    id: '1',
   },
   {
     path: '/profile',
@@ -29,6 +29,6 @@ export const routes: IAdminRoute[] = [
     name: 'Profile2', 
     component: <Profile/>,
     layout: '/admin',
-    id: 2,
+    id: '2',
   },
 ];

@@ -21,6 +21,7 @@ import { visuallyHidden } from "@mui/utils";
 import "./UsersList.css";
 //? Import Modal
 import Modal from "@mui/material/Modal";
+import UpdateUserAll from './UpdateUserEdit/UpdateUserEdit'
 
 interface Data {
   name: string;
@@ -54,6 +55,7 @@ function createData(
     edit,
   };
 }
+
 
 const rows = [
   createData(
@@ -320,6 +322,13 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 export default function EnhancedTable() {
   //!Modal
   const [open, setOpen] = React.useState(false);
+  
+  const [showUpdateUserAll, setShowUpdateUserAll] = useState(false);
+
+  const handleEdit = () => {
+    setShowUpdateUserAll(true);
+  };
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   //! Modal
@@ -439,10 +448,11 @@ export default function EnhancedTable() {
                       <TableCell align="center">{row.phoneNumber}</TableCell>
                       <TableCell align="center">{row.role}</TableCell>
                       <TableCell align="center">
-                        <IconButton>
-                          <row.edit.SettingsIcon />
+                         {showUpdateUserAll && <UpdateUserAll />}
+                        <IconButton >
+                          <UpdateUserAll/>
                         </IconButton>
-                        <IconButton onClick={handleOpen}>
+                        <IconButton color="error" onClick={handleOpen}>
                           <row.edit.DeleteIcon />
                         </IconButton>
                       </TableCell>
