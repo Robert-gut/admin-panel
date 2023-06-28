@@ -1,0 +1,27 @@
+.addUserWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        width: 400px;
+
+        h3{
+            color: white;
+            text-align: center;
+        }
+        .inputGroupWrapper{
+            position: relative;
+        }
+        .error{
+            color: #c00606;
+            position: absolute;
+            font-size: 14px;
+            bottom: -20px;
+            left: 10px;
+            letter-spacing: 1px;
+        }
+    }
+}
