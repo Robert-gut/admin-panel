@@ -2,14 +2,10 @@
 import Sidebar from "../components/Sidebar/Sidebar"
 // import UpdateUserEdit from "../components/pages/UpdateUserEdit/UpdateUserEdit"
 import Navbar from "../components/Navbar/Navbar"
-import Userslist from "../pages/UsersList/UsersList";
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Profile from "../pages/Profile/proflle";
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet, useParams, useHref } from "react-router-dom";
-
+import { BrowserRouter as Outlet } from "react-router-dom";
 
 import { routes } from "../routes";
 
