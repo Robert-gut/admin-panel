@@ -16,7 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/login/forgotPassword" element={<ForgotPassword />} />
         <Route path="/admin" element={<Admin />}>
-          {routes.filter(route => route.layout === 'admin')
+          {routes.filter(route => route.layout === '/admin')
           .map(route => <Route path={route.layout + route.path} element={route.component} key={route.id}/>)}
         </Route>
         <Route path="*" element={<Nope />} />

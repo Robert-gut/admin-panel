@@ -2,8 +2,10 @@ import { ReactNode } from 'react';
 // icons
 import PersonIcon from '@mui/icons-material/Person';
 
+
 // pages
 import Profile from './pages/Profile/proflle';
+import Userslist from "./pages/UsersList/UsersList";
 
 export interface IAdminRoute {
   path: string;
@@ -24,11 +26,11 @@ export const routes: IAdminRoute[] = [
     id: '1',
   },
   {
-    path: '/profile',
+    path: '/user-list',
     icon: <PersonIcon />,
-    name: 'Profile2', 
-    component: <Profile/>,
+    name: 'Userslist',
+    component: <Userslist/>,
     layout: '/admin',
-    id: '2',
+    id: 2,
   },
 ];
