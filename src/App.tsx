@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nope from "./pages/NotFound/Nope";
 import Admin from "./layouts/Admin";
 
-import Login from "./pages/Login/Login";
-import ForgotPassword from "./pages/Login/ForgotPassword/ForgotPassword";
+import Login from "../src/pages/Auth/Login";
+import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword";
 import { routes } from "./routes";
 
 function App() {

@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { BrowserRouter as Outlet } from "react-router-dom";
+import {  Outlet } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
@@ -8,12 +8,8 @@ import Footer from "../components/Footer/Footer";
 
 
 
-
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-
 import { routes } from "../routes";
-import { AddNewUser } from "../pages/AddNewUser/AddNewUser.tsx";
+// import { AddNewUser } from "../pages/AddNewUser/AddNewUser.tsx";
 
 export default function Admin() {
   return (
