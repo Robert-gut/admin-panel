@@ -2,17 +2,17 @@ import s from "../login.module.css";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaValidationForgotPassword } from "../schemaValidation";
-import { IForgotPassword } from "../../../common/api/types";
 import { Button } from "@mui/joy";
 import { Link } from "react-router-dom";
 import InputGroup from "../../../components/InputGroup/InnputGroup";
+import { IForgotPassword } from "../types.ts";
 
 const defaultValues = {
   email: "",
 };
 const ForgotPassword = () => {
   const formForgotPassword = useForm({
-    mode: "onBlur",
+    mode: "onSubmit",
     defaultValues,
     resolver: yupResolver(schemaValidationForgotPassword),
   });
