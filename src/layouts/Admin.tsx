@@ -1,8 +1,13 @@
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { BrowserRouter as Outlet } from "react-router-dom";
+
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-// import Userslist from "../pages/UsersList/UsersList";
-import Profile from "../pages/Profile/proflle";
+
+
+
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -26,17 +31,8 @@ export default function Admin() {
           <Grid item xs="auto">
             <Navbar />
           </Grid>
-          <Grid
-            item
-            xs
-            container
-            direction="column"
-            wrap="nowrap"
-            style={{ overflowY: "scroll" }}
-          >
-            {/*<Userslist />*/}
-            <Profile />
-            <AddNewUser />
+          <Grid item xs container direction="column" wrap="nowrap" style={{ overflowY: 'scroll' }}>
+            <Outlet />
           </Grid>
           <Grid item xs="auto">
             <Footer />
