@@ -6,16 +6,20 @@ import Admin from "./layouts/Admin";
 import Login from "./pages/Login/Login";
 import ForgotPassword from "./pages/Login/ForgotPassword/ForgotPassword";
 import TestAuth from "./pages/TestAuth/TestAuth";
+import { routes } from "./routes";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="*" element={<Nope />} />
         <Route path="/test" element={<TestAuth />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<Admin />}>
+          {routes.map(route => <Route path={route.layout + route.path} element={route.component} key={route.id}/>)}
+        </Route>
+        <Route path="*" element={<Nope />} />
+
       </Routes>
     </Router>
   );

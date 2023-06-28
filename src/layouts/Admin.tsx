@@ -7,6 +7,9 @@ import Userslist from "../pages/UsersList/UsersList";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Profile from "../pages/Profile/proflle";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Outlet, useParams, useHref } from "react-router-dom";
+
 
 import { routes } from "../routes";
 
@@ -23,10 +26,7 @@ export default function Admin() {
             <Navbar/>
           </Grid>
           <Grid item xs container direction="column" wrap="nowrap" style={{ overflowY: 'scroll' }}>
-            <Userslist />
-            <Profile/>
-            {/* <UpdateUserEdit/> */}
-            {/* <h1>Admin</h1> */}
+            <Outlet />
           </Grid>
           <Grid item xs="auto">
             <div>footer</div>
