@@ -1,0 +1,26 @@
+body {
+    background-color: rgb(148, 184, 216);
+}
+
+.wrapper {
+    border: 1px solid red;
+    height: 400px;
+    max-width: 400px;
+    overflow: scroll;
+    padding: 0px 10px 10px 10px;
+    margin: 30px auto;
+}
+
+h2 {
+    background-color: rgb(148, 184, 216);
+    /* border: 1px solid green; */
+    padding: 10px 0;
+    margin: 0;
+    position: sticky;
+    top: 0px;
+}
+
+aside {
+    /* border: 1px solid gold; */
+    
+}
