@@ -1,26 +1,74 @@
-body {
-    background-color: rgb(148, 184, 216);
-}
-
 .wrapper {
-    border: 1px solid red;
-    height: 400px;
-    max-width: 400px;
-    overflow: scroll;
-    padding: 0px 10px 10px 10px;
-    margin: 30px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin: 10px auto;
+    padding: 20px;
 }
 
 h2 {
     background-color: rgb(148, 184, 216);
-    /* border: 1px solid green; */
     padding: 10px 0;
     margin: 0;
-    position: sticky;
-    top: 0px;
+}
+
+.block__news {
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    max-width: 400px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.block__img {
+    position: relative;
+}
+
+.news__title {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    user-select: none;
+    font-size: 22px;
+    color: rgb(250, 250, 250);
+}
+
+img {
+    width: 100%;
+    margin-bottom: 10px;
+    opacity: 0.9;
 }
 
 aside {
-    /* border: 1px solid gold; */
-    
+    padding: 0 10px;
+}
+
+.block__add-news {
+    margin: 20px;
+}
+
+.block__add-news > input {
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 6px 12px;
+}
+
+.block__add-news>button {
+    border: none;
+    background-color: #1565c0;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.block__add-news>button:active {
+    opacity: 0.8;
 }
