@@ -8,6 +8,8 @@ import Login from "../src/pages/Auth/Login";
 import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword";
 import { routes } from "./routes";
 
+import { EditProfile } from "./pages/EditProfile/EditProfile";
+
 function App() {
   return (
     <Router>
@@ -20,6 +22,8 @@ function App() {
           .map(route => <Route path={route.layout + route.path} element={route.component} key={route.id}/>)}
         </Route>
         <Route path="*" element={<Nope />} />
+
+        <Route path="admin/edit" element={<EditProfile/>}/>
       </Routes>
     </Router>
   );

@@ -8,24 +8,24 @@
     justify-content: center;
 	background-color: rgb(5, 30, 52);
 	padding-top: 20px;
+
+	p {
+		font-size: 14px;
+		line-height: 21px;
+	}
+
+	h3 {
+		margin: 10px 0;
+	}
+	
+	h6 {
+		margin: 5px 0;
+		text-transform: uppercase;
+	}
 }
 
 * {
 	box-sizing: border-box;
-}
-
-h3 {
-	margin: 10px 0;
-}
-
-h6 {
-	margin: 5px 0;
-	text-transform: uppercase;
-}
-
-p {
-	font-size: 14px;
-	line-height: 21px;
 }
 
 .card-container {

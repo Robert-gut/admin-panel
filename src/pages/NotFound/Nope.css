@@ -59,15 +59,16 @@
     padding: 5px 15px;
 
     border: none;
-        
+
     padding: 25px 80px;
     display: inline-block;
     margin: 15px 30px;
-        
+
     outline: none;
     background: none;
     border: 2px solid FireBrick;
     border-radius: 4px;
+    color: #6d4a4a;
 
     cursor: pointer;
     position: relative;
@@ -80,6 +81,7 @@
 .btn-from-error:hover {
     /* background: red; */
 
+    color: #fff;
     text-shadow: 0 0 100px red, 0 0 40px FireBrick, 0 0 8px DarkRed;
     box-shadow: 0 0 80px red, 0 0 30px FireBrick, 0 0 6px DarkRed;
     border: 2px solid red;
@@ -94,6 +96,14 @@
 .btn-from-error:disabled {
     animation: none;
     border: 2px solid #817d7d;
+}
+
+@media screen and (max-width: 375px) {
+    #code {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 @keyframes upper {
