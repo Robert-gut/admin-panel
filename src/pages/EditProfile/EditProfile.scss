@@ -1,0 +1,134 @@
+.editProfile {
+    color: #fff;
+    // background-color: #e0b1cb;
+
+    hr, h3, h4 {
+        margin: 0;
+    }
+
+    a {  
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+        animation: a 0.9s linear infinite;
+    }
+    @keyframes a {
+        from { color: transparent; }
+        to { color: #f72585; }
+    }
+
+    hr {height: 3px; background-color: #fff;}
+
+    .head {
+        padding: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        background: rgb(199, 125, 255);
+        background: linear-gradient(
+        90deg,
+        rgba(90, 24, 154, 1) 30%,
+        rgba(199, 125, 255, 1) 100%
+        );
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            text-transform: initial;
+
+            background-color: #f72585;
+        }
+    }
+
+    .btnSumbit {
+        color: #f72585;
+        border: 2px solid #9d4edd;
+    }
+    .btnSumbit:hover {
+        border: 2px solid;
+        box-shadow: 8px 5px 5px rgba(90, 24, 154, 1);
+    }
+
+    .errorM {
+        color: red;
+        font-size: 12px;
+    }
+
+    .f2 {
+        label {
+            color: #80ffdb;
+        }
+    }
+    .f3 {
+        label {
+            color: #7ae582;
+        }
+    }
+    .f4 {
+        label {
+            color: #eec643;
+        }
+    }
+    .f5 {
+        label {
+            color: #c86bfa;
+        }
+    }
+    label {
+        color: #1565c0;
+    }
+
+    .form {
+        padding: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row wrap;
+        gap: 30px;
+
+        // inputs
+        #standard-basic {
+            color: #f72585;
+        }
+    }
+
+    .form-passwords {
+        padding: 10px 50px 0 50px;
+        
+        .inputs-passwords {
+            margin: 20px 0 2em 0;
+
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        #filled-password-input {
+            color: #f72585;
+            background-color: rgb(41, 41, 41);
+        }
+
+        span {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .btns-submits-passwords {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            flex-flow: row wrap;
+            gap: 20px;
+        }
+    }
+}
