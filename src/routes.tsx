@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
 // icons
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from "@mui/icons-material/Edit";
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 
 // pages
@@ -18,24 +20,27 @@ export interface IAdminRoute {
   component: ReactNode;
   layout: string;
   id: string;
+  role: string[];
 }
 
 export const routes: IAdminRoute[] = [
+    {
+    path: '/news',
+    icon: <NewspaperIcon />,
+    name: 'News',
+    component: <News/>,
+    layout: '/admin',
+    id: '1',
+    role: ['Users', 'Administrators'],
+  },
   {
     path: "/profile",
     icon: <PersonIcon />,
     name: "Profile",
     component: <Profile />,
     layout: "/admin",
-    id: "1",
-  },
-  {
-    path: "/profile",
-    icon: <PersonIcon />,
-    name: "Profile2",
-    component: <Profile />,
-    layout: "/admin",
     id: "2",
+    role: ['Users', 'Administrators'],
   },
   {
     path: "/edit",
@@ -44,21 +49,16 @@ export const routes: IAdminRoute[] = [
     component: <EditProfile />,
     layout: "/admin",
     id: "3",
+    role: ['Users', 'Administrators'],
   },
   {
     path: '/user-list',
-    icon: <PersonIcon />,
+    icon: <FormatListBulletedIcon />,
     name: 'Userslist',
     component: <Userslist/>,
     layout: '/admin',
     id: '4',
+    role: ['Administrators'],
   },
-    {
-    path: '/news',
-    icon: <PersonIcon />,
-    name: 'News',
-    component: <News/>,
-    layout: '/admin',
-    id: '5',
-  },
+
 ];
