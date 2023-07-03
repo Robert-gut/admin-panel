@@ -9,6 +9,8 @@ import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword";
 import { routes } from "./routes";
 
 import { EditProfile } from "./pages/EditProfile/EditProfile";
+import News from "./pages/News/News"
+
 
 function App() {
   return (
@@ -18,12 +20,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/login/forgotPassword" element={<ForgotPassword />} />
         <Route path="/admin" element={<Admin />}>
-          {routes.filter(route => route.layout === 'admin')
+          {routes.filter(route => route.layout === '/admin')
           .map(route => <Route path={route.layout + route.path} element={route.component} key={route.id}/>)}
         </Route>
-        <Route path="*" element={<Nope />} />
-
-        <Route path="admin/edit" element={<EditProfile/>}/>
       </Routes>
     </Router>
   );
