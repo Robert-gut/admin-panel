@@ -6,6 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 // pages
 import Profile from './pages/Profile/proflle';
 import Userslist from "./pages/UsersList/UsersList";
+import News from './pages/News/News'
 
 export interface IAdminRoute {
   path: string;
@@ -31,6 +32,14 @@ export const routes: IAdminRoute[] = [
     name: 'Userslist',
     component: <Userslist/>,
     layout: '/admin',
-    id: 2,
+    id: '2',
+  },
+    {
+    path: '/news',
+    icon: <PersonIcon />,
+    name: 'News',
+    component: <News/>,
+    layout: '/admin',
+    id: '3',
   },
 ];
