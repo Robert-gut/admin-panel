@@ -41,7 +41,21 @@ instance.interceptors.response.use(
             !originalConfig._retry &&
             getAccessToken() != null
         ) {
-            // Refresh
+            originalConfig._retry = true
+            try {
+                const rs = await refreshAccessToken()
+                const { accessToken, refreshToken } = rs.data
+                setAccessToken(accessToken)
+                setRefreshToken(refreshToken)
+                instance.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
+                return instance(originalConfig)
+            } catch (_error: any) {
+                if (_error.response && _error.response.data) {
+                    return Promise.reject(_error.response.data)
+                }
+                return Promise.reject(_error)
+            }
+
         }
         if (err.response.status === 403) {
             return Promise.reject(err.response.data)
@@ -212,5 +226,48 @@ export async function deleteUser (id: string) {
 }
 
 
+// Token and user
+
+export function setSelectedUser(user: any) {
+    user = JSON.stringify(user)
+    window.localStorage.setItem('selectedUser', user)
+}
+
+export function getSelectedUser() {
+    let selectedUser: any = window.localStorage.getItem('selectedUser')
+    selectedUser = JSON.parse(selectedUser)
+    return selectedUser
+}
+
+export function removeSelectedUser() {
+    window.localStorage.removeItem('selectedUser')
+}
+
 // Token
 
+export function setAccessToken(token: string) {
+    window.localStorage.setItem('accessToken', token)
+}
+
+export function setRefreshToken(token: string) {
+    window.localStorage.setItem('refreshToken', token)
+}
+
+export function getAccessToken(): null | string {
+    const accessToken = window.localStorage.getItem('accessToken')
+    return accessToken
+}
+
+export function getRefreshToken(): null | string {
+    const refreshToken = window.localStorage.getItem('refreshToken')
+    return refreshToken
+}
+
+export function removeTokens() {
+    window.localStorage.removeItem('accessToken')
+    window.localStorage.removeItem('refreshToken')
+    window.localStorage.removeItem('selectedUser')
+
+    // другий варянт
+    // window.localStorage.clear()
+}
