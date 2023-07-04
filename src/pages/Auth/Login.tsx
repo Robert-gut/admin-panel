@@ -35,18 +35,18 @@ const Login = () => {
   } = formLogin;
   const onSubmit = async (data: ILogin) => {
     setLoading(true);
-    const user = await login(data);
-    if (user.isSuccess) {
-      setAccessToken(user.accessToken);
-      setRefreshToken(user.refreshToken);
-      const activeUser = jwtDecode(user.accessToken);
+    const { response } = await login(data);
+    if (response.isSuccess) {
+      setAccessToken(response.accessToken);
+      setRefreshToken(response.refreshToken);
+      const activeUser = jwtDecode(response.accessToken);
       setSelectedUser(activeUser);
       formLogin.reset();
       navigate("/admin");
     } else {
       formLogin.setError("password", {
         type: "manual",
-        message: user.message,
+        message: response.message,
       });
     }
     setLoading(false);
