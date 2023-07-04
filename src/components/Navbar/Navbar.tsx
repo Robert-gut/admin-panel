@@ -16,7 +16,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom' 
+// useLocation для того, аби передавати динамічно назву (News,Profile,EditProfile,UserList) сторінки в Navbar
 import './Navbar.css'
 
 
@@ -67,6 +68,8 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
+
+  const location = useLocation();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -190,10 +193,14 @@ export default function Navbar() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             <MenuItem onClick={handleMenuClose} 
-              component={Link} to={'/admin'}  
+              component={Link} to={location.pathname} //to={'/admin'} тут можна задати шлях до любої сторінки
               sx={{ fontSize: '1.5rem' }} 
             > 
-              Dasboard
+              {location.pathname === '/admin' ? 'ADMIN PANEL' : ''}
+              {location.pathname === '/admin/news' ? 'NEWS' : ''}
+              {location.pathname === '/admin/profile' ? 'PROFILE' : ''}
+              {location.pathname === '/admin/edit' ? 'EDIT PROFILE' : ''}
+              {location.pathname === '/admin/user-list' ? 'USER LIST' : ''}
             </MenuItem>
 
 
