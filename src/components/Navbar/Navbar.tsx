@@ -201,6 +201,7 @@ export default function Navbar() {
               {location.pathname === '/admin/profile' ? 'PROFILE' : ''}
               {location.pathname === '/admin/edit' ? 'EDIT PROFILE' : ''}
               {location.pathname === '/admin/user-list' ? 'USER LIST' : ''}
+              {location.pathname === '/admin/add-new-user' ? 'ADD NEW USER' : ''}
             </MenuItem>
 
 

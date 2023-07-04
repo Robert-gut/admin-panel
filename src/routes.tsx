@@ -11,7 +11,7 @@ import Profile from './pages/Profile/proflle';
 import { EditProfile } from './pages/EditProfile/EditProfile';
 import Userslist from "./pages/UsersList/UsersList";
 import News from './pages/News/News'
-
+import AddNewUser from './pages/AddNewUser/AddNewUser';
 
 export interface IAdminRoute {
   path: string;
@@ -54,11 +54,19 @@ export const routes: IAdminRoute[] = [
   {
     path: '/user-list',
     icon: <FormatListBulletedIcon />,
-    name: 'Userslist',
+    name: 'Users list',
     component: <Userslist/>,
     layout: '/admin',
     id: '4',
     role: ['Administrators'],
   },
-
+  {
+    path: '/add-new-user',
+    icon: <NewspaperIcon />,
+    name: 'Add new user',
+    component: <AddNewUser/>,
+    layout: '/admin',
+    id: '5',
+    role: ['Administrators'],
+  },
 ];
