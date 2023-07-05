@@ -7,7 +7,7 @@ import { getSelectedUser} from "../../common/utils/localStorageLogic.ts";
 
 import './profile.css'
 
-interface logicSelectedUser {
+export interface logicSelectedUser {
   id: string;
   Name: string;
   Surname: string;
@@ -28,7 +28,7 @@ export default function Profile() {
     setUser(selectedUser);
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
 
   return (

@@ -1,13 +1,14 @@
 import "./EditProfile.scss";
-
-import React, { useState } from "react";
+import React from "react";
+import {useState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import {getSelectedUser} from "../../common/utils/localStorageLogic.ts";
+import {logicSelectedUser} from "../Profile/proflle.tsx";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -16,8 +17,20 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
-export const EditProfile = () => 
+
+
+export const EditProfile = () =>
+
 {
+    const [user, setUser] = useState<logicSelectedUser>();
+
+  useEffect(() => {
+    const selectedUser = getSelectedUser();
+    setUser(selectedUser);
+  }, []);
+
+  console.log(user);
+
   type Schema = {  //* /api/User/UpdateProfile
     id: string
     name: string
@@ -109,7 +122,7 @@ export const EditProfile = () =>
             className='f2'
             label='Name'
             variant='standard'
-            // value={value}
+            value={user?.Name}
             {...register("name", {
               required: "Name is required",
             })}
