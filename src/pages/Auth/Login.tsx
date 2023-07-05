@@ -38,7 +38,7 @@ const Login = () => {
     const { response } = await login(data);
     if (response.isSuccess) {
       setAccessToken(response.accessToken);
-      setRefreshToken(response.refreshToken);
+      setRefreshToken(response.refreshToken); 
       const activeUser = jwtDecode(response.accessToken);
       setSelectedUser(activeUser);
       formLogin.reset();

@@ -8,9 +8,9 @@ import {
 
 const instance = axios.create({
   //step URL
-  // baseURL: "https://10.7.201.111:5001/api/User",
+  baseURL: "https://10.7.201.111:5001/api/User",
   //home URL
-  baseURL: "https://194.44.93.225:5001/api/User",
+//   baseURL: "https://194.44.93.225:5001/api/User",
 
   headers: {
     "Content-Type": "application/json",
@@ -100,9 +100,9 @@ const User = {
   register: (user: any) => requests.post("/register", user),
   login: (user: any) => requests.post("/login", user),
   forgotPassword: (email: string) => requests.post("/ForgotPassword", email),
-  getAllUser: (start: number, end: number, isAll: boolean = false) => {
+  getAllUsers: (start: number, end: number, isAll: boolean = false) => {
     return requests.get(
-      "/GetAllUser?start=" + start + "&end=" + end + "&isAll=" + isAll
+      "/GetAllUsers?start=" + start + "&end=" + end + "&isAll=" + isAll
     );
   },
   logout: (userId: string) => requests.get("/logout?userId=" + userId),
@@ -151,8 +151,8 @@ export async function forgotPassword(email: string) {
   return data;
 }
 
-export async function getAllUser(start: number, end: number, isAll = false) {
-  const data = await User.getAllUser(start, end, isAll)
+export async function getAllUsers(start: number, end: number, isAll: boolean) {
+  const data = await User.getAllUsers(start, end, isAll)
     .then((response) => {
       return {
         response,
