@@ -6,6 +6,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaValidationLogin } from "./schemaValidation";
 import { Link, useNavigate } from "react-router-dom";
 import { ILogin } from "./types.ts";
+import { login } from "../../services/api-user-service/api-user-service.ts";
+import {
+  setAccessToken,
+  setRefreshToken,
+  setSelectedUser,
+} from "../../common/utils/localStorageLogic.ts";
+import jwtDecode from "jwt-decode";
+import { useState } from "react";
 
 const defaultValues = {
   email: "",
@@ -14,7 +22,7 @@ const defaultValues = {
 };
 const Login = () => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const formLogin = useForm({
     mode: "onSubmit",
     defaultValues,
@@ -25,9 +33,23 @@ const Login = () => {
     formState: { errors },
     register,
   } = formLogin;
-  const onSubmit = (data: ILogin) => {
-    console.log(data);
-    navigate("/admin");
+  const onSubmit = async (data: ILogin) => {
+    setLoading(true);
+    const { response } = await login(data);
+    if (response.isSuccess) {
+      setAccessToken(response.accessToken);
+      setRefreshToken(response.refreshToken);
+      const activeUser = jwtDecode(response.accessToken);
+      setSelectedUser(activeUser);
+      formLogin.reset();
+      navigate("/admin");
+    } else {
+      formLogin.setError("password", {
+        type: "manual",
+        message: response.message,
+      });
+    }
+    setLoading(false);
   };
   return (
     <div className={s.loginPageWrapper}>
@@ -67,7 +89,9 @@ const Login = () => {
             {...register("rememberMe")}
             label={"Remember me"}
           />
-          <Button type={"submit"}>Login</Button>
+          <Button type={"submit"} disabled={loading}>
+            Login
+          </Button>
           <Link className={s.link} to={"forgotPassword"}>
             Forgot password
           </Link>
