@@ -28,8 +28,7 @@ const ForgotPassword = () => {
       <FormProvider {...formForgotPassword}>
         <form
           className={s.forgotPasswordForm}
-          onSubmit={formForgotPassword.handleSubmit(onSubmit)}
-        >
+          onSubmit={formForgotPassword.handleSubmit(onSubmit)}>
           <h3 className={s.titleForm}>Recover password</h3>
           <InputGroup
             name={"email"}

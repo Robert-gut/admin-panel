@@ -1,0 +1,28 @@
+.fireNav {
+  color: #898989;
+
+  .css-15y9kc7-MuiList-root .MuiListItemButton-root {
+    padding: 0px;
+  }
+
+  .ListItemButton {
+    border-top-right-radius: 14.099px;
+    border-bottom-right-radius: 4.099px;
+  }
+  .css-6xguqr-MuiButtonBase-root-MuiListItemButton-root.Mui-selected,
+  .ListItemButton:active,
+  .ListItemButton:focus {
+    background: #e21143;
+    background: linear-gradient(60deg, #e21143, #ffb03a);
+    color: #000;
+  }
+
+  .listItemBtnFireText {
+    background-image: linear-gradient(225deg, #e21143, #ffb03a);
+    filter: drop-shadow(0 20px 30px #28d8ff33);
+    color: black;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-box-decoration-break: clone;
+  }
+}
