@@ -89,8 +89,7 @@ export const EditProfile = () =>
     <div className='editProfile'>
       <div className='head'>
         <div className='text'>
-          <h3>Edit Profile</h3>
-          <h4>Complete your profile</h4>
+          <h3>Complete your profile</h3>
         </div>
         <Button onClick={() => navigate("/admin/profile")} variant='contained'>
           Go to your personal profile
