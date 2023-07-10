@@ -34,14 +34,8 @@ instance.interceptors.request.use(
         return config;
     },
     (error: AxiosError): Promise<AxiosError> => {
-        return Promise.reject(error);
-
+        return Promise.reject(error)
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
 );
 
 instance.interceptors.response.use(
@@ -87,17 +81,6 @@ instance.interceptors.response.use(
         return Promise.reject(err);
 
     }
-    if (err.response.status === 403) {
-      return Promise.reject(err.response.data);
-    }
-    if (err.response.status === 404) {
-      if (axios.isAxiosError(err)) {
-        return Promise.reject(err.response?.data);
-      }
-      return;
-    }
-    return Promise.reject(err);
-  }
 );
 
 
@@ -131,9 +114,9 @@ const User = {
     register: (user: IRegisterUser) => requests.post<IRegisterUser>('/register', user),
     login: (user: ILogin) => requests.post<ILogin>('/login', user),
     forgotPassword: (email: string) => requests.post('/ForgotPassword', email),
-    getAllUser: (start: number, end: number, isAll: boolean = false): Promise<IGetAllUsersResponse> => {
+    getAllUsers: (start: number, end: number, isAll: boolean = false): Promise<IGetAllUsersResponse> => {
         return requests.get(
-            '/GetAllUser?start=' + start + '&end=' + end + '&isAll=' + isAll
+            '/GetAllUsers?start=' + start + '&end=' + end + '&isAll=' + isAll
         )
     },
     logout: (userId: string) => requests.get('/logout?userId=' + userId),
@@ -183,8 +166,8 @@ export async function forgotPassword (email: string): Promise<IResponseBase> {
     return data;
 }
 
-export async function getAllUser (start: number, end: number, isAll = false): Promise<IGetAllUsersResponse> {
-    const data = await User.getAllUser(start, end, isAll)
+export async function getAllUsers (start: number, end: number, isAll = false): Promise<IGetAllUsersResponse> {
+    const data = await User.getAllUsers(start, end, isAll)
         .then((response) => {
             return {
                 response
