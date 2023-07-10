@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Nope from "./pages/NotFound/Nope";
-import Admin from "./layouts/Admin";s
+import Admin from "./layouts/Admin";
 
 import Login from "../src/pages/Auth/Login";
 import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword";
@@ -35,7 +35,7 @@ const App = ({ isAuthenticated, setAuth }: AuthProps) => {
           !isAuthenticated ? (
             <Login setAuth={setAuth} />
           ) : (
-            <Navigate to={"/admin"} />
+            <Navigate to={"/admin/news"} />
           )
         }
       />
