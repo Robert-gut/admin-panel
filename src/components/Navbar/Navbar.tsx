@@ -23,6 +23,7 @@ import NavbarCss from "./Navbar.scss";
 import { getSelectedUser } from "../../common/utils/localStorageLogic";
 import { removeSelectedUser } from "../../common/utils/localStorageLogic";
 import { removeTokens } from "../../common/utils/localStorageLogic";
+import { logout } from "../../services/api-user-service/api-user-service";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -94,6 +95,7 @@ export default function Navbar() {
     console.log("id: ", Id);
 
     // removeSelectedUser()
+    logout(Id)
     removeTokens();
     handleMenuClose();
   };
