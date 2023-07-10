@@ -24,7 +24,7 @@ export default function Profile() {
       <h6>Ukraine</h6>
       <p>Chief manager in the company: The one who makes all the important decisions and takes full responsibility... for blaming others when things go wrong.</p>
       <div className="buttons">
-        <Link to={"/Userslist"}>
+        <Link to={"/admin/edit"}>
     <Button variant="contained" disableElevation>
       Edit profile
     </Button>

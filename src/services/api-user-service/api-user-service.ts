@@ -1,3 +1,4 @@
+
 import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from "../../../node_modules/axios/index";
 import {
     IConfig,
@@ -34,8 +35,14 @@ instance.interceptors.request.use(
     },
     (error: AxiosError): Promise<AxiosError> => {
         return Promise.reject(error);
+
     }
-)
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 instance.interceptors.response.use(
     (res: AxiosResponse): AxiosResponse => {
@@ -78,8 +85,21 @@ instance.interceptors.response.use(
             // return
         }
         return Promise.reject(err);
+
     }
-)
+    if (err.response.status === 403) {
+      return Promise.reject(err.response.data);
+    }
+    if (err.response.status === 404) {
+      if (axios.isAxiosError(err)) {
+        return Promise.reject(err.response?.data);
+      }
+      return;
+    }
+    return Promise.reject(err);
+  }
+);
+
 
 async function refreshAccessToken(): Promise<AxiosResponse> {
     // return instance.post('/RefreshToken', {
@@ -242,7 +262,6 @@ export async function deleteUser (id: string): Promise<IResponseBase> {
         })
     return data;
 }
-
 
 // Token and user
 

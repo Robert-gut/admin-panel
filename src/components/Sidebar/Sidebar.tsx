@@ -1,15 +1,18 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 
 import { IAdminRoute } from "../../routes";
+
+import styleSidebar from "./Sidebar.scss";
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
@@ -26,34 +29,37 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
 });
 
 export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
+  const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState("dashboard");
 
-  const handleListItemClick = (
-    id: string
-  ) => {
+  const handleListItemClick = (id: string) => {
     setSelectedIndex(id);
   };
 
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box sx={{ styleSidebar, height: "100%" }}>
       <ThemeProvider
         theme={createTheme({
           palette: {
             mode: "dark",
             primary: { main: "rgb(102, 157, 246)" },
-            background: { paper: "rgb(5, 30, 52)" },
+            background: { paper: "#111219" },
           },
         })}
       >
         <Paper sx={{ maxWidth: 356, minWidth: 250, height: "100%" }}>
-          <FireNav component="nav" disablePadding>
-            <ListItemButton>
+          <FireNav className='fireNav' component='nav' disablePadding>
+            <ListItemButton
+              className='listItemBtnFire'
+              onClick={() => navigate("/admin")}
+            >
               <ListItemIcon sx={{ fontSize: 25 }}>🔥</ListItemIcon>
               <ListItemText
-                primary="Admin Panel"
+                className='listItemBtnFireText'
+                primary='Admin Panel'
                 primaryTypographyProps={{
                   fontSize: 25,
-                  textTransform: "uppercase",
+                  textTransform: "capitalize",
                 }}
               />
             </ListItemButton>
@@ -61,10 +67,16 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
             <Box>
               {routes.map((item: IAdminRoute) => (
                 <ListItemButton
+                  className='ListItemButton'
                   component={Link}
                   to={item.layout + item.path}
                   key={item.name}
-                  sx={{ py: 0, minHeight: 50, color: "rgba(255,255,255,.8)" }}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    py: 0,
+                    minHeight: 50,
+                  }}
                   selected={selectedIndex === item.id}
                   onClick={() => handleListItemClick(item.id)}
                 >
@@ -75,7 +87,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
                     primary={item.name}
                     primaryTypographyProps={{
                       fontSize: 19,
-                      textTransform: "uppercase",
+                      textTransform: "initial",
                     }}
                   />
                 </ListItemButton>
