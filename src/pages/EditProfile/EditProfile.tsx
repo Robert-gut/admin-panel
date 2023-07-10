@@ -9,6 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import {getSelectedUser} from "../../common/utils/localStorageLogic.ts";
 import {logicSelectedUser} from "../Profile/proflle.tsx";
+import {updateUser} from "../../services/api-user-service/api-user-service.ts";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -16,7 +17,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 ) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
-
 
 
 export const EditProfile = () =>
@@ -37,6 +37,7 @@ export const EditProfile = () =>
     surname: string
     email: string
     phone: number
+    user?: string
   }
   
   type SchemaPassword = {
@@ -83,9 +84,10 @@ export const EditProfile = () =>
   };
   ////////////
 
+
   const onSubmit = (data: Schema) => {
     console.log("summitted", data);
-
+    updateUser(data);
     handleSuccess();
     reset();
   };
