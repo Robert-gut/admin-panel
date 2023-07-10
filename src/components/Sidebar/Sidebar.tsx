@@ -32,6 +32,10 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState("dashboard");
 
+  const selectedUser = localStorage.getItem('selectedUser');
+  const userOnline = selectedUser !== null ? JSON.parse(selectedUser) : null;
+  const filteredRoutes = routes.filter(route => route.role.includes(userOnline.role));
+
   const handleListItemClick = (id: string) => {
     setSelectedIndex(id);
   };
@@ -65,7 +69,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
             </ListItemButton>
             <Divider />
             <Box>
-              {routes.map((item: IAdminRoute) => (
+              {filteredRoutes.map((item: IAdminRoute) => (
                 <ListItemButton
                   className='ListItemButton'
                   component={Link}
