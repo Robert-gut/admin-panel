@@ -221,6 +221,7 @@ const style = {
 //! Modal />
 
 function EnhancedTableHead(props: EnhancedTableProps) {
+  console.clear()
   console.log(getAllUsers(0, 0, true));
   
 

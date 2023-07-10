@@ -11,7 +11,8 @@ import Grid from '@mui/material/Grid';
 import { routes } from "../routes";
 // import { AddNewUser } from "../pages/AddNewUser/AddNewUser.tsx";
 
-export default function Admin() {
+export default function Admin() {       
+
   return (
     <Box sx={{ height: "100vh" }}>
       <Grid
