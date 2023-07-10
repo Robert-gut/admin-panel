@@ -29,18 +29,16 @@ const instance: AxiosInstance = axios.create({
 });
 
 instance.interceptors.request.use(
-  (
-    config: InternalAxiosRequestConfig<IConfig>
-  ): InternalAxiosRequestConfig<IConfig> => {
-    const token = getAccessToken();
-    if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
+    (config: InternalAxiosRequestConfig<IConfig>): InternalAxiosRequestConfig<IConfig> => {
+        const token = getAccessToken();
+        if (token) {
+            config.headers['Authorization'] = 'Bearer ' + token;
+        }
+        return config;
+    },
+    (error: AxiosError): Promise<AxiosError> => {
+        return Promise.reject(error)
     }
-    return config;
-  },
-  (error: AxiosError): Promise<AxiosError> => {
-    return Promise.reject(error);
-  }
 );
 
 instance.interceptors.response.use(
@@ -76,17 +74,6 @@ instance.interceptors.response.use(
         return Promise.reject(_error);
       }
     }
-    if (err.response?.status === 403) {
-      return Promise.reject(err.response.data);
-    }
-    if (err.response?.status === 404) {
-      if (axios.isAxiosError(err)) {
-        return Promise.reject(err.response?.data);
-      }
-      // return
-    }
-    return Promise.reject(err);
-  }
 );
 
 async function refreshAccessToken(): Promise<AxiosResponse> {
@@ -117,27 +104,21 @@ const requests = {
     instance.delete(url, body).then().then(responseBody),
 };
 const User = {
-  register: (user: IRegisterUser) =>
-    requests.post<IRegisterUser>("/register", user),
-  login: (user: ILogin) => requests.post<ILogin>("/login", user),
-  forgotPassword: (email: string) => requests.post("/ForgotPassword", email),
-  getAllUsers: (
-    start: number,
-    end: number,
-    isAll: boolean = false
-  ): Promise<IGetAllUsersResponse> => {
-    return requests.get(
-      "/GetAllUsers?start=" + start + "&end=" + end + "&isAll=" + isAll
-    );
-  },
-  logout: (userId: string) => requests.get("/logout?userId=" + userId),
-  changePassword: (user: IChangePassword) =>
-    requests.post("/ChangePassword", user),
-  updateProfile: (user: IUpdateProfile) =>
-    requests.post("/updateProfile", user),
-  updateUser: (user: IUpdateUser) => requests.post("/UpdateUser", user),
-  deleteUser: (id: string) => requests.post("/DeleteUser", id),
-};
+    register: (user: IRegisterUser) => requests.post<IRegisterUser>('/register', user),
+    login: (user: ILogin) => requests.post<ILogin>('/login', user),
+    forgotPassword: (email: string) => requests.post('/ForgotPassword', email),
+    getAllUsers: (start: number, end: number, isAll: boolean = false): Promise<IGetAllUsersResponse> => {
+        return requests.get(
+            '/GetAllUsers?start=' + start + '&end=' + end + '&isAll=' + isAll
+        )
+    },
+    logout: (userId: string) => requests.get('/logout?userId=' + userId),
+    changePassword: (user: IChangePassword) => requests.post('/ChangePassword', user),
+    updateProfile: (user: IUpdateProfile) => requests.post('/updateProfile', user),
+    updateUser: (user: IUpdateUser) => requests.post('/UpdateUser', user),
+    deleteUser: (id: string) => requests.post('/DeleteUser', id)
+}
+
 
 export async function register(user: IRegisterUser): Promise<IResponseBase> {
   const data = await User.register(user)
@@ -178,21 +159,18 @@ export async function forgotPassword(email: string): Promise<IResponseBase> {
   return data;
 }
 
-export async function getAllUsers(
-  start: number,
-  end: number,
-  isAll = false
-): Promise<IGetAllUsersResponse> {
-  const data = await User.getAllUsers(start, end, isAll)
-    .then(response => {
-      return {
-        response,
-      };
-    })
-    .catch(error => {
-      return error.response;
-    });
-  return data;
+export async function getAllUsers (start: number, end: number, isAll = false): Promise<IGetAllUsersResponse> {
+    const data = await User.getAllUsers(start, end, isAll)
+        .then((response) => {
+            return {
+                response
+            }
+        })
+        .catch((error) => {
+            return error.response
+        })
+    return data;
+
 }
 
 export async function logout(userId: string): Promise<IResponseBase> {

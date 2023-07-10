@@ -21,7 +21,7 @@ import "./UsersList.css";
 //? Import Modal
 import Modal from "@mui/material/Modal";
 import UpdateUserAll from './UpdateUserEdit/UpdateUserEdit'
-import { getAllUsers } from "../../services/api-user-service/api-user-service";
+// import { GetAllUSers } from '../../services/api-user-service'
 
 interface Data {
   name: string;
@@ -222,7 +222,7 @@ const style = {
 
 function EnhancedTableHead(props: EnhancedTableProps) {
   console.clear()
-  console.log(getAllUsers(0, 0, true));
+  // console.log(getAllUsers(0, 0, true));
   
 
   const { order, orderBy, onRequestSort } = props;

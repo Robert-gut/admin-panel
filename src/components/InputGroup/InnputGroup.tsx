@@ -49,7 +49,7 @@ const InputGroup: FC<IPropsInputGroup> = ({
           onChange={onChange}
           error={error}
         />
-        {errorMassage && <span className={classNameError}>{errorMassage}</span>}
+        {errorMassage && <p className={classNameError}>{errorMassage}</p>}
       </label>
     </div>
   );
