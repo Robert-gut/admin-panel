@@ -64,11 +64,15 @@ interface IUpdateUser extends IUpdateProfile {
   role: string;
 }
 
-interface IGetAllUsersResponse extends ITokens {
-  message: string;
-  payload: IUser[];
-  isSuccess: string;
-  errors: null;
+interface IGetAllUsersResponse {
+  response: {
+    accessToken: string;
+    refreshToken: string;
+    message: string;
+    payload: IUser[];
+    isSuccess: boolean;
+    errors: null;
+  };
 }
 
 export type {

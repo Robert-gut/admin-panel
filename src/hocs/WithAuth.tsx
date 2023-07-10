@@ -19,7 +19,9 @@ export const withAuth = (WrappedComponent: ComponentType<AuthProps>) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-      getAllUsers(0, 0, true).then(( response ) => {
+      getAllUsers(0, 0, true).then(({response} ) => {
+        console.log(response);
+        
         if (response?.isSuccess) {
           setIsAuthenticated(true);
         } else {
