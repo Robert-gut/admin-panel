@@ -6,6 +6,7 @@ import { IRegister } from "./types.ts";
 import SelectSmall from "../../components/Select/Select.tsx";
 import { schemaValidationAddUser } from "./schemaValidation.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { register } from "../../services/api-user-service/api-user-service.ts";
 
 enum ESelectRole {
   Administrators = "Administrators",
@@ -13,7 +14,7 @@ enum ESelectRole {
 }
 const defaultValues = {
   name: "",
-  surename: "",
+  surname: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -29,8 +30,22 @@ export const AddNewUser = () => {
   const {
     formState: { errors },
   } = formAddUser;
-  const onSubmit = (data: IRegister) => {
-    console.log(data);
+  const onSubmit = async (data: IRegister) => {
+    try {
+      const { response } = await register(data);
+      if (!response.isSuccess) {
+        formAddUser.setError("confirmPassword", {
+          type: "manual",
+          message: response.errors[0],
+        });
+      }
+      if (response.isSuccess) {
+        formAddUser.reset();
+        alert(response.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -50,13 +65,13 @@ export const AddNewUser = () => {
             classNameInputGroupWrapper={s.inputGroupWrapper}
           />
           <InputGroup
-            name={"surename"}
-            id={"surename"}
-            classNameInput={"surename"}
-            placeholder={"Sure name"}
+            name={"surname"}
+            id={"surname"}
+            classNameInput={"surname"}
+            placeholder={"Surname"}
             type={"text"}
-            field={"surename"}
-            errorMassage={errors?.surename?.message}
+            field={"surname"}
+            errorMassage={errors?.surname?.message}
             classNameError={s.error}
             classNameInputGroupWrapper={s.inputGroupWrapper}
           />
@@ -67,7 +82,7 @@ export const AddNewUser = () => {
             placeholder={"Email"}
             type={"email"}
             field={"email"}
-            errorMassage={errors?.surename?.message}
+            errorMassage={errors?.email?.message}
             classNameError={s.error}
             classNameInputGroupWrapper={s.inputGroupWrapper}
           />
