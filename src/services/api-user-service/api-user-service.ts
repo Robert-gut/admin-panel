@@ -74,6 +74,7 @@ instance.interceptors.response.use(
         return Promise.reject(_error);
       }
     }
+  }
 );
 
 async function refreshAccessToken(): Promise<AxiosResponse> {

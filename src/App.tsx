@@ -17,7 +17,7 @@ const App = ({ isAuthenticated, setAuth }: AuthProps) => {
   return (
     <Routes>
       <Route element={<PrivateRoutes isAuth={isAuthenticated} />}>
-        <Route path="/admin" element={<Admin isAuth={isAuthenticated} />}>
+        <Route path="/admin" element={<Admin/>}>
           {routes
             .filter((route) => route.layout === "/admin")
             .map((route) => (
