@@ -9,6 +9,8 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
+import { changePassword } from '../../services/api-user-service/api-user-service'
+
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -18,6 +20,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export const EditProfile = () => 
 {
+
   type Schema = {  //* /api/User/UpdateProfile
     id: string
     name: string
@@ -80,6 +83,19 @@ export const EditProfile = () =>
   const onSubmitPasswords = (data: SchemaPassword) => {
     console.log("summitted passwords", data);
 
+    const selectedUser = localStorage.getItem('selectedUser');
+    const test = selectedUser !== null ? JSON.parse(selectedUser) : null;
+    
+    const userLocal: SchemaPassword = {
+      userId: test.Id,
+      oldPassword: data.oldPassword,
+      newPassword: data.newPassword,
+      confirmPassword: data.confirmPassword
+    }
+    console.log("onSubmitPasswords  userLocal:", userLocal)
+
+    changePassword(userLocal)
+
     setSubmittingPasswords(true);
     handleSuccess()
     resetPasswords()
@@ -89,8 +105,7 @@ export const EditProfile = () =>
     <div className='editProfile'>
       <div className='head'>
         <div className='text'>
-          <h3>Edit Profile</h3>
-          <h4>Complete your profile</h4>
+          <h3>Complete your profile</h3>
         </div>
         <Button onClick={() => navigate("/admin/profile")} variant='contained'>
           Go to your personal profile
@@ -252,6 +267,7 @@ export const EditProfile = () =>
             type='submit'
             variant='outlined'
             disabled={isSubmittingPasswords}
+
           >
             Update password
           </Button>

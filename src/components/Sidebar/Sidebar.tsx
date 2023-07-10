@@ -29,7 +29,7 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
 });
 
 export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState("dashboard");
 
   const handleListItemClick = (id: string) => {
@@ -49,7 +49,10 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
       >
         <Paper sx={{ maxWidth: 356, minWidth: 250, height: "100%" }}>
           <FireNav className='fireNav' component='nav' disablePadding>
-            <ListItemButton className='listItemBtnFire' onClick={() => navigate('/admin')}>
+            <ListItemButton
+              className='listItemBtnFire'
+              onClick={() => navigate("/admin")}
+            >
               <ListItemIcon sx={{ fontSize: 25 }}>🔥</ListItemIcon>
               <ListItemText
                 className='listItemBtnFireText'
