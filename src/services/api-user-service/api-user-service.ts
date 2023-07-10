@@ -8,9 +8,10 @@ import {
 
 const instance = axios.create({
   //step URL
-  // baseURL: "https://10.7.201.111:5001/api/User",
+  baseURL: "https://10.7.201.111:5001/api/User",
   //home URL
-  baseURL: "https://194.44.93.225:5001/api/User",
+//   baseURL: "https://194.44.93.225:5001/api/User",
+
 
   headers: {
     "Content-Type": "application/json",
