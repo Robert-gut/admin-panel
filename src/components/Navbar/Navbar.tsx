@@ -16,7 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
 // useLocation для того, аби передавати динамічно назву (News,Profile,EditProfile,UserList) сторінки в Navbar
 import NavbarCss from "./Navbar.scss?inline";
 
@@ -24,6 +24,7 @@ import { getSelectedUser } from "../../common/utils/localStorageLogic";
 import { removeSelectedUser } from "../../common/utils/localStorageLogic";
 import { removeTokens } from "../../common/utils/localStorageLogic";
 import { logout } from "../../services/api-user-service/api-user-service";
+import { withAuth } from "../../hocs/WithAuth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -73,6 +74,7 @@ export default function Navbar() {
     React.useState<null | HTMLElement>(null);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -98,6 +100,7 @@ export default function Navbar() {
     logout(Id)
     removeTokens();
     handleMenuClose();
+    window.location.reload();
   };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
