@@ -40,10 +40,17 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
     setSelectedIndex(routeId);
   }
 
+
+  const selectedUser = localStorage.getItem('selectedUser');
+  const userOnline = selectedUser !== null ? JSON.parse(selectedUser) : null;
+  const filteredRoutes = routes.filter(route => route.role.includes(userOnline.role));
+
+
   useEffect(() => {
     setSelectedLink(location.pathname);
   }, [location]);
   
+
   const handleListItemClick = (id: string) => {
     setSelectedIndex(id);
   };
@@ -77,7 +84,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
             </ListItemButton>
             <Divider />
             <Box>
-              {routes.map((item: IAdminRoute) => (
+              {filteredRoutes.map((item: IAdminRoute) => (
                 <ListItemButton
                   className='ListItemButton'
                   component={Link}
