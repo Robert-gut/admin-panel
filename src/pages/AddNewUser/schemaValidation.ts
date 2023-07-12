@@ -6,7 +6,7 @@ export const schemaValidationAddUser = yup.object({
     .required("The field is required")
     .min(2, "Minimum 2 characters!")
     .max(30, "Maximum 2 characters"),
-  surename: yup
+  surname: yup
     .string()
     .required("The field is required")
     .min(2, "Minimum 2 characters!")

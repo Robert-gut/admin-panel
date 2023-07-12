@@ -1,15 +1,15 @@
 import "./EditProfile.scss";
-import React from "react";
-import {useState, useEffect} from "react";
+
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import {getSelectedUser} from "../../common/utils/localStorageLogic.ts";
-import {logicSelectedUser} from "../Profile/proflle.tsx";
-import {updateUser} from "../../services/api-user-service/api-user-service.ts";
+
+import { changePassword } from '../../services/api-user-service/api-user-service'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -18,18 +18,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
-
-export const EditProfile = () =>
-
+export const EditProfile = () => 
 {
-    const [user, setUser] = useState<logicSelectedUser>();
-
-  useEffect(() => {
-    const selectedUser = getSelectedUser();
-    setUser(selectedUser);
-  }, []);
-
-  console.log(user);
 
   type Schema = {  //* /api/User/UpdateProfile
     id: string
@@ -37,7 +27,6 @@ export const EditProfile = () =>
     surname: string
     email: string
     phone: number
-    user?: string
   }
   
   type SchemaPassword = {
@@ -84,16 +73,28 @@ export const EditProfile = () =>
   };
   ////////////
 
-
   const onSubmit = (data: Schema) => {
     console.log("summitted", data);
-    updateUser(data);
+
     handleSuccess();
     reset();
   };
 
   const onSubmitPasswords = (data: SchemaPassword) => {
     console.log("summitted passwords", data);
+
+    const selectedUser = localStorage.getItem('selectedUser');
+    const test = selectedUser !== null ? JSON.parse(selectedUser) : null;
+    
+    const userLocal: SchemaPassword = {
+      userId: test.Id,
+      oldPassword: data.oldPassword,
+      newPassword: data.newPassword,
+      confirmPassword: data.confirmPassword
+    }
+    console.log("onSubmitPasswords  userLocal:", userLocal)
+
+    changePassword(userLocal)
 
     setSubmittingPasswords(true);
     handleSuccess()
@@ -104,8 +105,7 @@ export const EditProfile = () =>
     <div className='editProfile'>
       <div className='head'>
         <div className='text'>
-          <h3>Edit Profile</h3>
-          <h4>Complete your profile</h4>
+          <h3>Complete your profile</h3>
         </div>
         <Button onClick={() => navigate("/admin/profile")} variant='contained'>
           Go to your personal profile
@@ -124,7 +124,7 @@ export const EditProfile = () =>
             className='f2'
             label='Name'
             variant='standard'
-            value={user?.Name}
+            // value={value}
             {...register("name", {
               required: "Name is required",
             })}
@@ -267,6 +267,7 @@ export const EditProfile = () =>
             type='submit'
             variant='outlined'
             disabled={isSubmittingPasswords}
+
           >
             Update password
           </Button>
