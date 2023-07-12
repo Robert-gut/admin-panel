@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -13,6 +13,7 @@ import Paper from "@mui/material/Paper";
 import { IAdminRoute } from "../../routes";
 
 import styleSidebar from "./Sidebar.scss";
+import { useEffect } from "react";
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
@@ -30,8 +31,19 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
 
 export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
   const navigate = useNavigate();
-  const [selectedIndex, setSelectedIndex] = React.useState("dashboard");
+  const location = useLocation();
+  const [selectedIndex, setSelectedIndex] = React.useState('1');
+  
+  const setSelectedLink = (pathname: string) => {
+    const [layout, path] = pathname.split('/').filter(part => part !== '');    
+    const routeId = routes.find(route => route.path.slice(1) ===  path)?.id || '1';
+    setSelectedIndex(routeId);
+  }
 
+  useEffect(() => {
+    setSelectedLink(location.pathname);
+  }, [location]);
+  
   const handleListItemClick = (id: string) => {
     setSelectedIndex(id);
   };
