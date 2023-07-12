@@ -18,7 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 
 import { Link, useLocation } from "react-router-dom";
 // useLocation для того, аби передавати динамічно назву (News,Profile,EditProfile,UserList) сторінки в Navbar
-import NavbarCss from "./Navbar.scss";
+import NavbarCss from "./Navbar.scss?inline";
 
 import { getSelectedUser } from "../../common/utils/localStorageLogic";
 import { removeSelectedUser } from "../../common/utils/localStorageLogic";

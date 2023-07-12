@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 
 import { IAdminRoute } from "../../routes";
 
-import styleSidebar from "./Sidebar.scss";
+import styleSidebar from "./Sidebar.scss?inline";
 import { useEffect } from "react";
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
