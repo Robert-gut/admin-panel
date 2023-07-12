@@ -4,6 +4,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from "@mui/icons-material/Edit";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 
 // pages
@@ -62,7 +63,7 @@ export const routes: IAdminRoute[] = [
   },
   {
     path: '/add-new-user',
-    icon: <NewspaperIcon />,
+    icon: <AddNewUser />,
     name: 'Add new user',
     component: <AddNewUser/>,
     layout: '/admin',
