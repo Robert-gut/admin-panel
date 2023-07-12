@@ -63,7 +63,7 @@ export const routes: IAdminRoute[] = [
   },
   {
     path: '/add-new-user',
-    icon: <AddNewUser />,
+    icon: <PersonAddIcon />,
     name: 'Add new user',
     component: <AddNewUser/>,
     layout: '/admin',

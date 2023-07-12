@@ -24,7 +24,8 @@ const defaultValues = {
 const Login = ({
   setAuth,
 }: {
-  setAuth?: Dispatch<SetStateAction<boolean>>;
+  // setAuth?: Dispatch<SetStateAction<boolean>>;
+  setAuth?: any;
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -91,8 +92,8 @@ const Login = ({
           />
           <Checkbox
             className={s.checkbox}
-            color="primary"
-            variant="soft"
+            color='primary'
+            variant='soft'
             {...register("rememberMe")}
             label={"Remember me"}
           />
