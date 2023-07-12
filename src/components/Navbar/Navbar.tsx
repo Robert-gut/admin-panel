@@ -121,12 +121,12 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose} component={Link} to={"/admins"}>
+      <MenuItem onClick={handleMenuClose} component={Link} to={"/admin/profile"}>
         Profile{" "}
         {/* З допомогою component підключаємо Link і автоматично скидуються стилі, такі як підкреслювання чи колір після нажимання  */}
       </MenuItem>
-      <MenuItem onClick={handleMenuClose} component={Link} to={"/admins"}>
-        My account
+      <MenuItem onClick={handleMenuClose} component={Link} to={"/admin/edit"}>
+        Edit Profile
       </MenuItem>
 
       <MenuItem onClick={handleLogout} component={Link} to={"/login"}>
