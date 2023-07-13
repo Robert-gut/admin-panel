@@ -10,6 +10,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import TextField from './TextField'
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Box from "@mui/material/Box";
 
 
 const Transition = React.forwardRef(function Transition(
@@ -40,9 +41,9 @@ export default function AlertDialogSlide() {
 
   return (
     <div>
-      <IconButton color="primary" onClick={handleClickOpen}>
+      <Box color="primary" onClick={handleClickOpen}>
         <SettingsIcon />
-      </IconButton>
+      </Box>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -53,9 +54,7 @@ export default function AlertDialogSlide() {
       >
         <DialogTitle>{"Редагування данних"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
             <TextField/>
-          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} type='submit' color="error">Відмінити</Button>

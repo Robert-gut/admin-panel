@@ -6,15 +6,19 @@ interface IConfig {
 }
 
 interface ITokens {
-  accessToken: string;
-  refreshToken: string;
+  accessToken?: string | null;
+  refreshToken?: string | null;
 }
 
-interface IResponseBase extends ITokens {
+interface IResponseBase {
+  response: {
   message: string;
   payload: string;
-  isSuccess: string;
+  isSuccess: boolean;
   errors: Error;
+  accessToken: string;
+  refreshToken: string;
+  }
 }
 
 interface IUser {
@@ -22,46 +26,46 @@ interface IUser {
   name: string;
   surname: string;
   email: string;
-  phoneNumber: null | string;
+  phoneNumber: string | null;
   emailConfirmed: boolean;
-  lockoutEnd: null | string;
+  lockoutEnd: string | null;
   role: Role;
 }
 
 // Requests
 
 interface IRegisterUser {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  role: Role;
+  name?: string | null;
+  surname?: string | null;
+  email?: string | null;
+  password?: string | null;
+  confirmPassword?: string | null;
+  role?: string | null;
 }
 
 interface ILogin {
-  email: string;
-  password: string;
-  rememberMe: boolean;
+  email?: string | null;
+  password?: string | null;
+  rememberMe?: boolean;
 }
 
 interface IUpdateProfile {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
+  id?: string | null;
+  name?: string | null;
+  surname?: string | null;
+  email?: string | null;
+  phone?: string | null;
 }
 
 interface IChangePassword {
-  userId: string;
-  oldPassword: string;
-  newPassword: string;
-  confirmPassword: string;
+  userId?: string | null;
+  oldPassword?: string | null;
+  newPassword?: string | null;
+  confirmPassword?: string | null;
 }
 
 interface IUpdateUser extends IUpdateProfile {
-  role: string;
+  role: string | null;
 }
 
 interface IGetAllUsersResponse {

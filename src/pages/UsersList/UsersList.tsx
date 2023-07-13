@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -21,7 +21,7 @@ import "./UsersList.css";
 //? Import Modal
 import Modal from "@mui/material/Modal";
 import UpdateUserAll from './UpdateUserEdit/UpdateUserEdit'
-// import { GetAllUSers } from '../../services/api-user-service'
+import {getAllUsers} from "../../services/api-user-service/api-user-service.ts";
 
 interface Data {
   name: string;
@@ -29,10 +29,7 @@ interface Data {
   email: string;
   phoneNumber: number;
   role: string;
-  edit: {
-    SettingsIcon: React.ElementType;
-    DeleteIcon: React.ElementType;
-  };
+  edit?: ReactNode,
 }
 
 function createData(
@@ -41,10 +38,8 @@ function createData(
   email: string,
   phoneNumber: number,
   role: string,
-  edit: {
-    SettingsIcon: React.ElementType;
-    DeleteIcon: React.ElementType;
-  }
+  edit?: ReactNode,
+
 ): Data {
   return {
     name,
@@ -56,63 +51,6 @@ function createData(
   };
 }
 
-
-const rows = [
-  createData(
-    "Dakota Rice",
-    "Niger",
-    "Oud-Turnhout",
-    3056635236,
-    "Administrators",
-    {
-      SettingsIcon: SettingsIcon,
-      DeleteIcon: DeleteIcon,
-    }
-  ),
-  createData(
-    "Minerva Hooper",
-    "Curaçao",
-    "Sinaai-Waas",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Sage Rodriguez",
-    "Netherlands",
-    "Baileux",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Philip Chaney",
-    "Korea, South",
-    "Overland Park",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Doris Greene",
-    "Malawi",
-    "Feldkirchen in Kärnten",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Mason Porter",
-    "Chile",
-    "Gloucester",
-    3056635236,
-    "Administrators",
-    {
-      SettingsIcon: SettingsIcon,
-      DeleteIcon: DeleteIcon,
-    }
-  ),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -138,7 +76,7 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
+function stableSort<T>(array: Data[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -207,7 +145,7 @@ interface EnhancedTableProps {
 }
 //!Modal
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -221,10 +159,6 @@ const style = {
 //! Modal />
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  console.clear()
-  // console.log(getAllUsers(0, 0, true));
-  
-
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler =
     (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
@@ -306,7 +240,31 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   );
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
 export default function EnhancedTable() {
+
+  const [users, setUsers] = useState([]);
+
+  useEffect( ()=> {
+    getAllUsers(0, 0, true).then((response) => {
+      const {response: {payload}} = response;
+      setUsers(payload)
+    })
+  }, [])
+      const rows = users?.map((user)=> {
+        return createData(user.name, user.surname, user.email, user.phoneNumber, user.role, )
+      })
   //!Modal
   const [open, setOpen] = React.useState(false);
   
@@ -336,7 +294,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows?.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -377,7 +335,7 @@ export default function EnhancedTable() {
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -400,21 +358,18 @@ export default function EnhancedTable() {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
+                .map((row, index) => {
                   return (
-                    <TableRow className="table">
+                    <TableRow key={index} className="table">
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.surname}</TableCell>
                       <TableCell align="center">{row.email}</TableCell>
                       <TableCell align="center">{row.phoneNumber}</TableCell>
                       <TableCell align="center">{row.role}</TableCell>
                       <TableCell align="center">
-                         {showUpdateUserAll && <UpdateUserAll />}
-                        <IconButton >
-                          <UpdateUserAll/>
-                        </IconButton>
+                            <UpdateUserAll/>
                         <IconButton color="error" onClick={handleOpen}>
-                          <row.edit.DeleteIcon />
+                          <DeleteIcon/>
                         </IconButton>
                       </TableCell>
                     </TableRow>

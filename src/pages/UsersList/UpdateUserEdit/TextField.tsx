@@ -13,12 +13,9 @@ export default function FormComponent() {
     <Container maxWidth="md">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 3 },
-          }}
-          noValidate
-          autoComplete="off"
+            sx={{
+              '& .MuiTextField-root': { m: 3 },
+            }}
         >
           <Grid container spacing={3}>
             <Grid item xs={6}>

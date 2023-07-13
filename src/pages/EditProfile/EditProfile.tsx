@@ -1,6 +1,5 @@
 import "./EditProfile.scss";
-
-import React, { useState } from "react";
+import React  from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -80,7 +79,7 @@ export const EditProfile = () =>
     reset();
   };
 
-  const onSubmitPasswords = (data: SchemaPassword) => {
+  const onSubmitPasswords = async (data: SchemaPassword) => {
     console.log("summitted passwords", data);
 
     const selectedUser = localStorage.getItem('selectedUser');
@@ -94,7 +93,7 @@ export const EditProfile = () =>
     }
     console.log("onSubmitPasswords  userLocal:", userLocal)
 
-    changePassword(userLocal)
+    await changePassword(userLocal)
 
     setSubmittingPasswords(true);
     handleSuccess()
