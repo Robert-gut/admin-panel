@@ -2,13 +2,13 @@ import s from "./addNewUser.module.scss";
 import InputGroup from "../../components/InputGroup/InnputGroup";
 import { Button } from "@mui/joy";
 import { FormProvider, useForm } from "react-hook-form";
-import { IRegister } from "./types.ts";
 import SelectSmall from "../../components/Select/Select.tsx";
 import { schemaValidationAddUser } from "./schemaValidation.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { register } from "../../services/api-user-service/api-user-service.ts";
+import {IRegisterUser} from "../../common/interfaces/api-user-type.ts";
 
-enum ESelectRole {
+export enum ESelectRole {
   Administrators = "Administrators",
   Users = "Users",
 }
@@ -18,7 +18,7 @@ const defaultValues = {
   email: "",
   password: "",
   confirmPassword: "",
-  role: "",
+  role: "Users"
 };
 export const AddNewUser = () => {
   const formAddUser = useForm({
@@ -30,13 +30,14 @@ export const AddNewUser = () => {
   const {
     formState: { errors },
   } = formAddUser;
-  const onSubmit = async (data: IRegister) => {
+  const onSubmit = async (data: IRegisterUser) => {
     try {
       const { response } = await register(data);
+      console.log(response)
       if (!response.isSuccess) {
         formAddUser.setError("confirmPassword", {
           type: "manual",
-          message: response.errors[0],
+          message: response.errors ? response?.errors[0] : ""
         });
       }
       if (response.isSuccess) {

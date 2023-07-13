@@ -6,7 +6,6 @@ import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 
@@ -35,7 +34,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
   const [selectedIndex, setSelectedIndex] = React.useState('1');
   
   const setSelectedLink = (pathname: string) => {
-    const [layout, path] = pathname.split('/').filter(part => part !== '');    
+    const [ path] = pathname.split('/').filter(part => part !== '');
     const routeId = routes.find(route => route.path.slice(1) ===  path)?.id || '1';
     setSelectedIndex(routeId);
   }
@@ -43,7 +42,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
 
   const selectedUser = localStorage.getItem('selectedUser');
   const userOnline = selectedUser !== null ? JSON.parse(selectedUser) : null;
-  const filteredRoutes = routes.filter(route => route.role.includes(userOnline.role));
+  const filteredRoutes = routes?.filter(route => route?.role?.includes(userOnline?.role));
 
 
   useEffect(() => {
@@ -84,7 +83,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
             </ListItemButton>
             <Divider />
             <Box>
-              {filteredRoutes.map((item: IAdminRoute) => (
+              {filteredRoutes?.map((item: IAdminRoute) => (
                 <ListItemButton
                   className='ListItemButton'
                   component={Link}
