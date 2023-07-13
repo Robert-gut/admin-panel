@@ -1,4 +1,4 @@
-.loginPageWrapper{
+.loginPageWrapper {
     background: #2148C0;
     /*opacity: 0.8;*/
     height: 100vh;
@@ -7,22 +7,25 @@
     z-index: 10;
     display: flex;
     justify-content: center;
-
 }
-.loginPageWrapper:after{
+
+.loginPageWrapper:after {
     content: url("/src/assets/loginPage/backgroundSvg-right.svg");
     position: absolute;
     top: 0;
     right: 0;
     z-index: 0;
 }
-.loginPageWrapper:before{
+
+.loginPageWrapper:before {
     content: url("/src/assets/loginPage/backgroundSvg-left.svg");
     position: absolute;
     bottom: 0;
     left: 0;
 }
-.formLogin, .forgotPasswordForm{
+
+.formLogin,
+.forgotPasswordForm {
     position: relative;
     z-index: 20;
     width: 300px;
@@ -31,30 +34,38 @@
     justify-content: center;
     gap: 30px;
 }
-.titleForm{
+
+.titleForm {
     text-align: center;
     color: azure;
 }
-.inputGroupWrapper{
+
+.inputGroupWrapper {
     position: relative;
+
 }
-.errorLogin{
+
+.errorLogin {
     color: #750c0c;
     position: absolute;
     font-size: 14px;
-    bottom: -20px;
+    bottom: -35px;
     left: 10px;
     letter-spacing: 1px;
+    /* border: 1px solid red; */
 }
-.checkbox{
+
+.checkbox {
     color: #0fabab;
 }
-.link{
+
+.link {
     text-decoration: none;
     color: azure;
     font-size: 14px;
     text-align: center;
 }
-.link:hover{
-color: #020a1e;
+
+.link:hover {
+    color: #020a1e;
 }
