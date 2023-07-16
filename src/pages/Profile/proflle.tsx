@@ -16,7 +16,18 @@ export default function Profile() {
     setUser(selectedUser);
   }, []);
 
-  // console.log(user);
+  console.log(user);
+
+      // Додаємо підписку на подію storage, що виникає при зміні стану локального сховища
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'selectedUser') {
+        const updatedUser = JSON.parse(event.newValue || '{}') as logicSelectedUser;
+        setUser(updatedUser);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
 
 
   return (
@@ -58,7 +69,3 @@ export default function Profile() {
           </div>
   );
 }
-
-
-
-//

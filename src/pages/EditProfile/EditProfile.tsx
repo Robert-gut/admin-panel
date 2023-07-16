@@ -71,13 +71,21 @@ export const EditProfile = () => {
   };
   ////////////
 
-  const onSubmit = (data: Schema) => {
-    console.log("summitted", data);
-    const updatedData = {...user, ...data}
-    handleSuccess();
-    reset();
-    setSelectedUser(updatedData)
+const onSubmit = (data: Schema) => {
+  console.log("summitted", data);
+  const updatedData = {
+    ...user,
+    Name: data.name || user.Name,
+    Surname: data.surname || user.Surname,
+    Email: data.email || user.Email,
+    PhoneNumber: data.phone || user.PhoneNumber
   };
+
+  handleSuccess();
+  reset();
+  setSelectedUser(updatedData);
+};
+
 
   const onSubmitPasswords = async (data: SchemaPassword) => {
     console.log("summitted passwords", data);
@@ -183,7 +191,7 @@ export const EditProfile = () => {
               required: "Phone is required",
               valueAsNumber: true,
               min: { value: 1, message: "Phone number must be at least 18" },
-              max: { value: 99, message: "Phone number must be at most 99" },
+              max: { value: 999999999999, message: "Phone number must be at most 999999999999" },
             })}
 
           />
