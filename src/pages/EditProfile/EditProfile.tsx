@@ -1,14 +1,14 @@
 import "./EditProfile.scss";
-import React  from "react";
+import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-
 import { changePassword } from '../../services/api-user-service/api-user-service'
+import {logicSelectedUser, Schema, SchemaPassword} from "./typeProfiles.ts";
+import {getSelectedUser, setSelectedUser} from "../../common/utils/localStorageLogic.ts";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -17,30 +17,29 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
-export const EditProfile = () => 
-{
+export const EditProfile = () => {
 
-  type Schema = {  //* /api/User/UpdateProfile
-    id: string
-    name: string
-    surname: string
-    email: string
-    phone: number
-  }
-  
-  type SchemaPassword = {
-    userId: string
-    oldPassword: string
-    newPassword: string
-    confirmPassword: string
-  }
+    const user = getSelectedUser();
 
   const navigate = useNavigate()
-  const form = useForm<Schema>();
+  const form = useForm<Schema>({
+    defaultValues: {
+      name: user.Name,
+      surname: user.Surname,
+      email: user.Email,
+      phone: user.PhoneNumber
+    }
+  });
   const { register, handleSubmit, reset, formState } = form;
   const { errors } = formState
 
-  const formPasswords = useForm<SchemaPassword>()
+  const formPasswords = useForm<SchemaPassword>({
+    defaultValues: {
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    }
+  });
   const {
     register: registerPasswords,
     handleSubmit: handleSubmitPasswords,
@@ -74,9 +73,10 @@ export const EditProfile = () =>
 
   const onSubmit = (data: Schema) => {
     console.log("summitted", data);
-
+    const updatedData = {...user, ...data}
     handleSuccess();
     reset();
+    setSelectedUser(updatedData)
   };
 
   const onSubmitPasswords = async (data: SchemaPassword) => {
@@ -84,7 +84,7 @@ export const EditProfile = () =>
 
     const selectedUser = localStorage.getItem('selectedUser');
     const test = selectedUser !== null ? JSON.parse(selectedUser) : null;
-    
+
     const userLocal: SchemaPassword = {
       userId: test.Id,
       oldPassword: data.oldPassword,
@@ -100,6 +100,13 @@ export const EditProfile = () =>
     resetPasswords()
   }
 
+
+
+
+
+
+
+
   return (
     <div className='editProfile'>
       <div className='head'>
@@ -113,21 +120,21 @@ export const EditProfile = () =>
 
       <form
         className='form'
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         noValidate
-        autoComplete='off'
       >
         <div className='form-control'>
-          <TextField
-            id='standard-basic'
-            className='f2'
-            label='Name'
-            variant='standard'
-            // value={value}
-            {...register("name", {
-              required: "Name is required",
-            })}
-          />
+        <TextField
+          id='standard-basic'
+          className='f2'
+          label='Name'
+          variant='standard'
+
+          {...form.register("name", {
+            required: "Name is required",
+          })}
+        />
+
           <p className='errorM'>{errors.name?.message}</p>
         </div>
 
@@ -137,9 +144,10 @@ export const EditProfile = () =>
             className='f2'
             label='Surname'
             variant='standard'
-            {...register("surname", {
+            {...form.register("surname", {
               required: "Surname is required",
             })}
+
           />
           <p className='errorM'>{errors.surname?.message}</p>
         </div>
@@ -151,7 +159,7 @@ export const EditProfile = () =>
             label='Email'
             type='email'
             variant='standard'
-            {...register("email", {
+            {...form.register("email", {
               required: "Email is required",
               pattern: {
                 value:
@@ -159,6 +167,7 @@ export const EditProfile = () =>
                 message: "Invalid email format",
               },
             })}
+
           />
           <p className='errorM'>{errors.email?.message}</p>
         </div>
@@ -170,12 +179,13 @@ export const EditProfile = () =>
             label='Phone'
             type='number'
             variant='standard'
-            {...register("phone", {
+            {...form.register("phone", {
               required: "Phone is required",
               valueAsNumber: true,
               min: { value: 1, message: "Phone number must be at least 18" },
               max: { value: 99, message: "Phone number must be at most 99" },
             })}
+
           />
           <p className='errorM'>{errors.phone?.message}</p>
         </div>
@@ -197,7 +207,7 @@ export const EditProfile = () =>
       </div>
       <form
         className='form-passwords'
-        onSubmit={handleSubmitPasswords(onSubmitPasswords)}
+        onSubmit={formPasswords.handleSubmit(onSubmitPasswords)}
         autoComplete='off'
       >
         <div className='inputs-passwords'>
@@ -209,7 +219,7 @@ export const EditProfile = () =>
               type='password'
               autoComplete='current-password'
               variant='filled'
-              {...registerPasswords("oldPassword", {
+              {...formPasswords.register("oldPassword", {
                 required: "Password is required",
               })}
             />
@@ -222,7 +232,7 @@ export const EditProfile = () =>
               type='password'
               autoComplete='current-password'
               variant='filled'
-              {...registerPasswords("newPassword", {
+              {...formPasswords.register("newPassword", {
                 required: "New password is required",
                 min: { value: 8, message: "Minimum 8 characters" },
               })}
@@ -236,7 +246,7 @@ export const EditProfile = () =>
               type='password'
               autoComplete='current-password'
               variant='filled'
-              {...registerPasswords("confirmPassword", {
+              {...formPasswords.register("confirmPassword", {
                 required: "Confirm password is required",
                 validate: (val: string) => {
                   if (watchPasswords("newPassword") != val) {
