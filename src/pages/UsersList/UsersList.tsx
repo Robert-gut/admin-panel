@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -16,102 +16,61 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { visuallyHidden } from "@mui/utils";
-//? import styles
 import "./UsersList.css";
-//? Import Modal
 import Modal from "@mui/material/Modal";
-import UpdateUserAll from './UpdateUserEdit/UpdateUserEdit'
-// import { GetAllUSers } from '../../services/api-user-service'
+import UpdateUserAll from "./UpdateUserEdit/UpdateUserEdit";
+import {
+  getAllUsers,
+  deleteUser,
+} from "../../services/api-user-service/api-user-service";
 
 interface Data {
+  id: string;
   name: string;
   surname: string;
   email: string;
   phoneNumber: number;
   role: string;
-  edit: {
-    SettingsIcon: React.ElementType;
-    DeleteIcon: React.ElementType;
-  };
+  edit: string;
 }
 
-function createData(
-  name: string,
-  surname: string,
-  email: string,
-  phoneNumber: number,
-  role: string,
-  edit: {
-    SettingsIcon: React.ElementType;
-    DeleteIcon: React.ElementType;
-  }
-): Data {
-  return {
-    name,
-    surname,
-    email,
-    phoneNumber,
-    role,
-    edit,
-  };
-}
-
-
-const rows = [
-  createData(
-    "Dakota Rice",
-    "Niger",
-    "Oud-Turnhout",
-    3056635236,
-    "Administrators",
-    {
-      SettingsIcon: SettingsIcon,
-      DeleteIcon: DeleteIcon,
-    }
-  ),
-  createData(
-    "Minerva Hooper",
-    "Curaçao",
-    "Sinaai-Waas",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Sage Rodriguez",
-    "Netherlands",
-    "Baileux",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Philip Chaney",
-    "Korea, South",
-    "Overland Park",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Doris Greene",
-    "Malawi",
-    "Feldkirchen in Kärnten",
-    3056635236,
-    "Administrators",
-    { SettingsIcon: SettingsIcon, DeleteIcon: DeleteIcon }
-  ),
-  createData(
-    "Mason Porter",
-    "Chile",
-    "Gloucester",
-    3056635236,
-    "Administrators",
-    {
-      SettingsIcon: SettingsIcon,
-      DeleteIcon: DeleteIcon,
-    }
-  ),
+const headCells: HeadCell[] = [
+  {
+    id: "name",
+    numeric: false,
+    disablePadding: true,
+    label: "Name",
+  },
+  {
+    id: "surname",
+    numeric: false,
+    disablePadding: false,
+    label: "Surname",
+  },
+  {
+    id: "email",
+    numeric: false,
+    disablePadding: false,
+    label: "Email",
+  },
+  {
+    id: "phoneNumber",
+    numeric: true,
+    disablePadding: false,
+    label: "Phone Number",
+  },
+  {
+    id: "role",
+    numeric: false,
+    disablePadding: false,
+    label: "Role",
+  },
+  {
+    id: "edit",
+    numeric: false,
+    disablePadding: false,
+    label: "Edit",
+  },
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -155,57 +114,6 @@ interface HeadCell {
   numeric: boolean;
 }
 
-const headCells: HeadCell[] = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Name",
-  },
-  {
-    id: "surname",
-    numeric: false,
-    disablePadding: false,
-    label: "Surname",
-  },
-  {
-    id: "email",
-    numeric: false,
-    disablePadding: false,
-    label: "Email",
-  },
-  {
-    id: "phoneNumber",
-    numeric: true,
-    disablePadding: false,
-    label: "Phone Number",
-  },
-  {
-    id: "role",
-    numeric: false,
-    disablePadding: false,
-    label: "Role",
-  },
-  {
-    id: "edit",
-    numeric: false,
-    disablePadding: false,
-    label: "Edit",
-  },
-];
-
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-//!Modal
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -218,14 +126,9 @@ const style = {
   p: 4,
 };
 
-//! Modal />
-
 function EnhancedTableHead(props: EnhancedTableProps) {
-  console.clear()
-  // console.log(getAllUsers(0, 0, true));
-  
-
   const { order, orderBy, onRequestSort } = props;
+
   const createSortHandler =
     (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -237,10 +140,14 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "center" : "center"}
+            align={headCell.numeric ? "center" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
-            style={{ fontSize: "22px", fontWeight: "bold" }}
+            style={{
+              fontSize: "22px",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -262,11 +169,19 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-interface EnhancedTableToolbarProps {
+interface EnhancedTableProps {
   numSelected: number;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof Data
+  ) => void;
+  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  order: Order;
+  orderBy: keyof Data;
+  rowCount: number;
 }
 
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
+const EnhancedTableToolbar = (props: EnhancedTableProps) => {
   const { numSelected } = props;
 
   return (
@@ -307,18 +222,52 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 };
 
 export default function EnhancedTable() {
-  //!Modal
-  const [open, setOpen] = React.useState(false);
-  
+  const [open, setOpen] = useState(false);
   const [showUpdateUserAll, setShowUpdateUserAll] = useState(false);
+  const [usersList, setUsersList] = useState<Data[]>([]);
+  const [deleteUserId, setDeleteUserId] = useState<string>("");
 
-  const handleEdit = () => {
-    setShowUpdateUserAll(true);
+  const handleDeleteUser = async (deleteUserId: string) => {
+    try {
+      const updatedUsersList = usersList.filter(
+        (user) => user.id !== deleteUserId
+      );
+      setUsersList(updatedUsersList);
+
+      await deleteUser(deleteUserId);
+
+      alert(`Користувач успішно видалений.`);
+    } catch (error) {
+      console.error(error);
+      alert(`Помилка при видаленні користувача`);
+    } finally {
+      handleClose();
+    }
   };
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  //! Modal
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getAllUsers(0, 0, true);
+        setUsersList(result.response.payload);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleOpen = (deleteUserId: string) => {
+    setOpen(true);
+    setDeleteUserId(deleteUserId);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setDeleteUserId("");
+  };
+
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Data>("name");
   const [selected, setSelected] = useState<string[]>([]);
@@ -336,31 +285,11 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = usersList.map((user) => user.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
-  };
-
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected: string[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -374,55 +303,63 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - usersList.length) : 0;
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          onRequestSort={handleRequestSort}
+          onSelectAllClick={handleSelectAllClick}
+          order={order}
+          orderBy={orderBy}
+          rowCount={usersList.length}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={"medium"}
+            size="medium"
           >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              onSelectAllClick={handleSelectAllClick}
+              rowCount={usersList.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(usersList, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow className="table">
-                      <TableCell align="center">{row.name}</TableCell>
-                      <TableCell align="center">{row.surname}</TableCell>
-                      <TableCell align="center">{row.email}</TableCell>
-                      <TableCell align="center">{row.phoneNumber}</TableCell>
-                      <TableCell align="center">{row.role}</TableCell>
-                      <TableCell align="center">
-                         {showUpdateUserAll && <UpdateUserAll />}
-                        <IconButton >
-                          <UpdateUserAll/>
-                        </IconButton>
-                        <IconButton color="error" onClick={handleOpen}>
-                          <row.edit.DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                .map((row) => (
+                  <TableRow className="table" key={row.id}>
+                    <TableCell align="center">{row.name}</TableCell>
+                    <TableCell align="center">{row.surname}</TableCell>
+                    <TableCell align="center">{row.email}</TableCell>
+                    <TableCell align="center">{row.phoneNumber}</TableCell>
+                    <TableCell align="center">{row.role}</TableCell>
+                    <TableCell align="center">
+                      {showUpdateUserAll && <UpdateUserAll />}
+                      <IconButton
+                        onClick={() => setShowUpdateUserAll(!showUpdateUserAll)}
+                      >
+                        <SettingsIcon />
+                      </IconButton>
+                      <IconButton
+                        color="error"
+                        onClick={() => handleOpen(row.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={7} />
+                  <TableCell colSpan={6} />
                 </TableRow>
               )}
             </TableBody>
@@ -431,7 +368,7 @@ export default function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={usersList.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -449,9 +386,15 @@ export default function EnhancedTable() {
             Підтвердження видалення
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Ви впевнені що бажаєте видалити користувача?
+            Ви впевнені, що бажаєте видалити користувача?
           </Typography>
-          <button className="btnModal">Так</button>
+          <button
+            className="btnModal"
+            onClick={() => handleDeleteUser(deleteUserId)}
+          >
+            Так
+          </button>
+
           <button className="btnModal" onClick={handleClose}>
             Ні
           </button>
