@@ -95,7 +95,7 @@
         gap: 30px;
 
         // inputs
-        #standard-basic {
+        #standard-basic, #name-basic, #surname-basic, #email-basic, #phone-basic {
             color: #f72585;
         }
     }
@@ -112,7 +112,7 @@
             gap: 20px;
         }
 
-        #filled-password-input {
+        #filled-password-input, #filled-old-password-input, #filled-new-password-input {
             color: #f72585;
             background-color: rgb(41, 41, 41);
         }

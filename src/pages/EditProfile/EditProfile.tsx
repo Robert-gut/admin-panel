@@ -115,27 +115,31 @@ export const EditProfile = () => {
         </Button>
       </div>
 
-      <form className="form" onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <div className="form-control">
-          <TextField
-            id="standard-basic"
-            className="f2"
-            label="Name"
-            variant="standard"
-            {...form.register("name", {
-              required: "Name is required",
-            })}
-          />
+      <form
+        className='form'
+        onSubmit={form.handleSubmit(onSubmit)}
+        noValidate
+      >
+        <div className='form-control'>
+        <TextField
+          id='name-basic'
+          className='f2'
+          label='Name'
+          variant='standard'
 
+          {...form.register("name", {
+            required: "Name is required",
+          })}
+        />
           <p className="errorM">{errors.name?.message}</p>
         </div>
 
         <div className="form-control">
           <TextField
-            id="standard-basic"
-            className="f2"
-            label="Surname"
-            variant="standard"
+            id='surname-basic'
+            className='f2'
+            label='Surname'
+            variant='standard'
             {...form.register("surname", {
               required: "Surname is required",
             })}
@@ -145,11 +149,11 @@ export const EditProfile = () => {
 
         <div className="form-control">
           <TextField
-            id="standard-basic"
-            className="f3"
-            label="Email"
-            type="email"
-            variant="standard"
+            id='email-basic'
+            className='f3'
+            label='Email'
+            type='email'
+            variant='standard'
             {...form.register("email", {
               required: "Email is required",
               pattern: {
@@ -164,11 +168,11 @@ export const EditProfile = () => {
 
         <div className="form-control">
           <TextField
-            id="standard-basic"
-            className="f4"
-            label="Phone"
-            type="number"
-            variant="standard"
+            id='phone-basic'
+            className='f4'
+            label='Phone'
+            type='number'
+            variant='standard'
             {...form.register("phone", {
               required: "Phone is required",
               valueAsNumber: true,
@@ -205,12 +209,12 @@ export const EditProfile = () => {
         <div className="inputs-passwords">
           <div className="form-control">
             <TextField
-              id="filled-password-input"
-              className="f5"
-              label="Old password"
-              type="password"
-              autoComplete="current-password"
-              variant="filled"
+              id='filled-old-password-input'
+              className='f5'
+              label='Old password'
+              type='password'
+              autoComplete='current-password'
+              variant='filled'
               {...formPasswords.register("oldPassword", {
                 required: "Password is required",
               })}
@@ -219,11 +223,11 @@ export const EditProfile = () => {
           </div>
           <div className="form-control">
             <TextField
-              id="filled-password-input"
-              label="New password"
-              type="password"
-              autoComplete="current-password"
-              variant="filled"
+              id='filled-new-password-input'
+              label='New password'
+              type='password'
+              autoComplete='current-password'
+              variant='filled'
               {...formPasswords.register("newPassword", {
                 required: "New password is required",
                 min: { value: 8, message: "Minimum 8 characters" },
@@ -233,11 +237,11 @@ export const EditProfile = () => {
           </div>
           <div className="form-control">
             <TextField
-              id="filled-password-input"
-              label="Confirm new password"
-              type="password"
-              autoComplete="current-password"
-              variant="filled"
+              id='filled-password-input'
+              label='Confirm new password'
+              type='password'
+              autoComplete='current-password'
+              variant='filled'
               {...formPasswords.register("confirmPassword", {
                 required: "Confirm password is required",
                 validate: (val: string) => {
