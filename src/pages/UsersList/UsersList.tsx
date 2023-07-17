@@ -76,8 +76,6 @@ const headCells: HeadCell[] = [
   },
 ];
 
-  edit?: ReactNode,
-}
 
 function createData(
   name: string,
