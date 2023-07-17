@@ -109,12 +109,6 @@ const onSubmit = (data: Schema) => {
   }
 
 
-
-
-
-
-
-
   return (
     <div className='editProfile'>
       <div className='head'>
@@ -133,7 +127,7 @@ const onSubmit = (data: Schema) => {
       >
         <div className='form-control'>
         <TextField
-          id='standard-basic'
+          id='standard-basic 1'
           className='f2'
           label='Name'
           variant='standard'
@@ -148,7 +142,7 @@ const onSubmit = (data: Schema) => {
 
         <div className='form-control'>
           <TextField
-            id='standard-basic'
+            id='standard-basic 2'
             className='f2'
             label='Surname'
             variant='standard'
@@ -162,7 +156,7 @@ const onSubmit = (data: Schema) => {
 
         <div className='form-control'>
           <TextField
-            id='standard-basic'
+            id='standard-basic 3'
             className='f3'
             label='Email'
             type='email'
@@ -182,7 +176,7 @@ const onSubmit = (data: Schema) => {
 
         <div className='form-control'>
           <TextField
-            id='standard-basic'
+            id='standard-basic 4'
             className='f4'
             label='Phone'
             type='number'
@@ -221,7 +215,7 @@ const onSubmit = (data: Schema) => {
         <div className='inputs-passwords'>
           <div className='form-control'>
             <TextField
-              id='filled-password-input'
+              id='filled-password-input 1'
               className='f5'
               label='Old password'
               type='password'
@@ -235,7 +229,7 @@ const onSubmit = (data: Schema) => {
           </div>
           <div className='form-control'>
             <TextField
-              id='filled-password-input'
+              id='filled-password-input 2'
               label='New password'
               type='password'
               autoComplete='current-password'
@@ -249,7 +243,7 @@ const onSubmit = (data: Schema) => {
           </div>
           <div className='form-control'>
             <TextField
-              id='filled-password-input'
+              id='filled-password-input 3'
               label='Confirm new password'
               type='password'
               autoComplete='current-password'
