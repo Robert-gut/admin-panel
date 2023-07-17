@@ -25,9 +25,9 @@ import {
 
 const instance: AxiosInstance = axios.create({
     //step URL
-    baseURL: "http://10.7.201.111:5035/api/User",
+    // baseURL: "http://10.7.201.111:5035/api/User",
     //home URL
-    // baseURL: 'http://194.44.93.225:5001/api/User',
+    baseURL: 'http://194.44.93.225:5001/api/User',
 
     headers: {
         "Content-Type": "application/json",
