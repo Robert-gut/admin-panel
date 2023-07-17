@@ -35,18 +35,16 @@ const instance: AxiosInstance = axios.create({
 });
 
 instance.interceptors.request.use(
-  (
-    config: InternalAxiosRequestConfig<IConfig>
-  ): InternalAxiosRequestConfig<IConfig> => {
-    const token = getAccessToken();
-    if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
+    (config: InternalAxiosRequestConfig<IConfig>): InternalAxiosRequestConfig<IConfig> => {
+        const token = getAccessToken();
+        if (token) {
+            config.headers['Authorization'] = 'Bearer ' + token;
+        }
+        return config;
+    },
+    (error: AxiosError): Promise<AxiosError> => {
+        return Promise.reject(error)
     }
-    return config;
-  },
-  (error: AxiosError): Promise<AxiosError> => {
-    return Promise.reject(error);
-  }
 );
 
 instance.interceptors.response.use(
@@ -87,14 +85,6 @@ instance.interceptors.response.use(
         }
         throw new Error('Unexpected error');
     }
-    if (err.response?.status === 404) {
-      if (axios.isAxiosError(err)) {
-        return Promise.reject(err.response?.data);
-      }
-      // return
-    }
-    return Promise.reject(err);
-  }
 );
 
 async function refreshAccessToken(): Promise<AxiosResponse> {
