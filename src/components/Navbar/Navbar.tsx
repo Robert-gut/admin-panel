@@ -9,20 +9,19 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-// import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 // useLocation для того, аби передавати динамічно назву (News,Profile,EditProfile,UserList) сторінки в Navbar
-import NavbarCss from "./Navbar.scss";
+import NavbarCss from "./Navbar.scss?inline";
 
 import { getSelectedUser } from "../../common/utils/localStorageLogic";
-import { removeSelectedUser } from "../../common/utils/localStorageLogic";
 import { removeTokens } from "../../common/utils/localStorageLogic";
+import { logout } from "../../services/api-user-service/api-user-service";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -94,8 +93,10 @@ export default function Navbar() {
     console.log("id: ", Id);
 
     // removeSelectedUser()
+    logout(Id)
     removeTokens();
     handleMenuClose();
+    window.location.reload();
   };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -119,12 +120,12 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose} component={Link} to={"/admins"}>
+      <MenuItem onClick={handleMenuClose} component={Link} to={"/admin/profile"}>
         Profile{" "}
         {/* З допомогою component підключаємо Link і автоматично скидуються стилі, такі як підкреслювання чи колір після нажимання  */}
       </MenuItem>
-      <MenuItem onClick={handleMenuClose} component={Link} to={"/admins"}>
-        My account
+      <MenuItem onClick={handleMenuClose} component={Link} to={"/admin/edit"}>
+        Edit Profile
       </MenuItem>
 
       <MenuItem onClick={handleLogout} component={Link} to={"/login"}>

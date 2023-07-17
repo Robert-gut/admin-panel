@@ -1,18 +1,18 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 
 import { IAdminRoute } from "../../routes";
 
-import styleSidebar from "./Sidebar.scss";
+import styleSidebar from "./Sidebar.scss?inline";
+import { useEffect } from "react";
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
   "& .MuiListItemButton-root": {
@@ -30,7 +30,25 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
 
 export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
   const navigate = useNavigate();
-  const [selectedIndex, setSelectedIndex] = React.useState("dashboard");
+  const location = useLocation();
+  const [selectedIndex, setSelectedIndex] = React.useState('1');
+  
+  const setSelectedLink = (pathname: string) => {
+    const [ path] = pathname.split('/').filter(part => part !== '');
+    const routeId = routes.find(route => route.path.slice(1) ===  path)?.id || '1';
+    setSelectedIndex(routeId);
+  }
+
+
+  const selectedUser = localStorage.getItem('selectedUser');
+  const userOnline = selectedUser !== null ? JSON.parse(selectedUser) : null;
+  const filteredRoutes = routes?.filter(route => route?.role?.includes(userOnline?.role));
+
+
+  useEffect(() => {
+    setSelectedLink(location.pathname);
+  }, [location]);
+  
 
   const handleListItemClick = (id: string) => {
     setSelectedIndex(id);
@@ -65,7 +83,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
             </ListItemButton>
             <Divider />
             <Box>
-              {routes.map((item: IAdminRoute) => (
+              {filteredRoutes?.map((item: IAdminRoute) => (
                 <ListItemButton
                   className='ListItemButton'
                   component={Link}

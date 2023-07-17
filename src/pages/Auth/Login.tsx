@@ -4,7 +4,7 @@ import { Button, Checkbox } from "@mui/joy";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaValidationLogin } from "./schemaValidation";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ILogin } from "./types.ts";
 import { login } from "../../services/api-user-service/api-user-service.ts";
 import {
@@ -13,16 +13,22 @@ import {
   setSelectedUser,
 } from "../../common/utils/localStorageLogic.ts";
 import jwtDecode from "jwt-decode";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const defaultValues = {
   email: "",
   password: "",
   rememberMe: false,
 };
-const Login = () => {
-  const navigate = useNavigate();
+
+
+const Login = ({
+  setAuth,
+}: {
+  setAuth?: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [loading, setLoading] = useState(false);
+
   const formLogin = useForm({
     mode: "onSubmit",
     defaultValues,
@@ -33,22 +39,26 @@ const Login = () => {
     formState: { errors },
     register,
   } = formLogin;
+
   const onSubmit = async (data: ILogin) => {
+
     setLoading(true);
     const { response } = await login(data);
+
     if (response.isSuccess) {
       setAccessToken(response.accessToken);
-      setRefreshToken(response.refreshToken); 
+      setRefreshToken(response.refreshToken);
       const activeUser = jwtDecode(response.accessToken);
       setSelectedUser(activeUser);
-      formLogin.reset();
-      navigate("/admin");
+      setAuth && setAuth(true);
+
     } else {
       formLogin.setError("password", {
         type: "manual",
         message: response.message,
       });
     }
+
     setLoading(false);
   };
   return (
@@ -70,6 +80,7 @@ const Login = () => {
             errorMassage={errors?.email?.message}
             classNameError={s.errorLogin}
             classNameInputGroupWrapper={s.inputGroupWrapper}
+            autoComplete={"email"}
           />
           <InputGroup
             name={"password"}
@@ -81,6 +92,7 @@ const Login = () => {
             errorMassage={errors?.password?.message}
             classNameError={s.errorLogin}
             classNameInputGroupWrapper={s.inputGroupWrapper}
+            autoComplete={"password"}
           />
           <Checkbox
             className={s.checkbox}

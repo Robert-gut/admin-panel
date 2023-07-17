@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import React, {ReactNode, useEffect, useState} from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -24,6 +25,7 @@ import {
   deleteUser,
 } from "../../services/api-user-service/api-user-service";
 
+
 interface Data {
   id: string;
   name: string;
@@ -31,6 +33,7 @@ interface Data {
   email: string;
   phoneNumber: number;
   role: string;
+
   edit: string;
 }
 
@@ -73,6 +76,29 @@ const headCells: HeadCell[] = [
   },
 ];
 
+  edit?: ReactNode,
+}
+
+function createData(
+  name: string,
+  surname: string,
+  email: string,
+  phoneNumber: number,
+  role: string,
+  edit?: ReactNode,
+
+): Data {
+  return {
+    name,
+    surname,
+    email,
+    phoneNumber,
+    role,
+    edit,
+  };
+}
+
+
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -97,7 +123,7 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
+function stableSort<T>(array: Data[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -115,7 +141,7 @@ interface HeadCell {
 }
 
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -221,7 +247,20 @@ const EnhancedTableToolbar = (props: EnhancedTableProps) => {
   );
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
 export default function EnhancedTable() {
+
   const [open, setOpen] = useState(false);
   const [showUpdateUserAll, setShowUpdateUserAll] = useState(false);
   const [usersList, setUsersList] = useState<Data[]>([]);
@@ -285,7 +324,9 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
+
       const newSelecteds = usersList.map((user) => user.id);
+
       setSelected(newSelecteds);
       return;
     }
@@ -305,6 +346,7 @@ export default function EnhancedTable() {
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - usersList.length) : 0;
+
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -357,6 +399,7 @@ export default function EnhancedTable() {
                     </TableCell>
                   </TableRow>
                 ))}
+
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
                   <TableCell colSpan={6} />

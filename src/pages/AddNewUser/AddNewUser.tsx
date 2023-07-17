@@ -2,22 +2,23 @@ import s from "./addNewUser.module.scss";
 import InputGroup from "../../components/InputGroup/InnputGroup";
 import { Button } from "@mui/joy";
 import { FormProvider, useForm } from "react-hook-form";
-import { IRegister } from "./types.ts";
 import SelectSmall from "../../components/Select/Select.tsx";
 import { schemaValidationAddUser } from "./schemaValidation.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { register } from "../../services/api-user-service/api-user-service.ts";
+import {IRegisterUser} from "../../common/interfaces/api-user-type.ts";
 
-enum ESelectRole {
+export enum ESelectRole {
   Administrators = "Administrators",
   Users = "Users",
 }
 const defaultValues = {
   name: "",
-  surename: "",
+  surname: "",
   email: "",
   password: "",
   confirmPassword: "",
-  role: "",
+  role: "Users"
 };
 export const AddNewUser = () => {
   const formAddUser = useForm({
@@ -29,8 +30,23 @@ export const AddNewUser = () => {
   const {
     formState: { errors },
   } = formAddUser;
-  const onSubmit = (data: IRegister) => {
-    console.log(data);
+  const onSubmit = async (data: IRegisterUser) => {
+    try {
+      const { response } = await register(data);
+      console.log(response)
+      if (!response.isSuccess) {
+        formAddUser.setError("confirmPassword", {
+          type: "manual",
+          message: response.errors ? response?.errors[0] : ""
+        });
+      }
+      if (response.isSuccess) {
+        formAddUser.reset();
+        alert(response.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -50,13 +66,13 @@ export const AddNewUser = () => {
             classNameInputGroupWrapper={s.inputGroupWrapper}
           />
           <InputGroup
-            name={"surename"}
-            id={"surename"}
-            classNameInput={"surename"}
-            placeholder={"Sure name"}
+            name={"surname"}
+            id={"surname"}
+            classNameInput={"surname"}
+            placeholder={"Surname"}
             type={"text"}
-            field={"surename"}
-            errorMassage={errors?.surename?.message}
+            field={"surname"}
+            errorMassage={errors?.surname?.message}
             classNameError={s.error}
             classNameInputGroupWrapper={s.inputGroupWrapper}
           />
@@ -67,7 +83,7 @@ export const AddNewUser = () => {
             placeholder={"Email"}
             type={"email"}
             field={"email"}
-            errorMassage={errors?.surename?.message}
+            errorMassage={errors?.email?.message}
             classNameError={s.error}
             classNameInputGroupWrapper={s.inputGroupWrapper}
           />
