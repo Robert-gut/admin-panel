@@ -127,7 +127,7 @@ const onSubmit = (data: Schema) => {
       >
         <div className='form-control'>
         <TextField
-          id='standard-basic 1'
+          id='name-basic'
           className='f2'
           label='Name'
           variant='standard'
@@ -142,7 +142,7 @@ const onSubmit = (data: Schema) => {
 
         <div className='form-control'>
           <TextField
-            id='standard-basic 2'
+            id='surname-basic'
             className='f2'
             label='Surname'
             variant='standard'
@@ -156,7 +156,7 @@ const onSubmit = (data: Schema) => {
 
         <div className='form-control'>
           <TextField
-            id='standard-basic 3'
+            id='email-basic'
             className='f3'
             label='Email'
             type='email'
@@ -176,7 +176,7 @@ const onSubmit = (data: Schema) => {
 
         <div className='form-control'>
           <TextField
-            id='standard-basic 4'
+            id='phone-basic'
             className='f4'
             label='Phone'
             type='number'
@@ -215,7 +215,7 @@ const onSubmit = (data: Schema) => {
         <div className='inputs-passwords'>
           <div className='form-control'>
             <TextField
-              id='filled-password-input 1'
+              id='filled-old-password-input'
               className='f5'
               label='Old password'
               type='password'
@@ -229,7 +229,7 @@ const onSubmit = (data: Schema) => {
           </div>
           <div className='form-control'>
             <TextField
-              id='filled-password-input 2'
+              id='filled-new-password-input'
               label='New password'
               type='password'
               autoComplete='current-password'
@@ -243,7 +243,7 @@ const onSubmit = (data: Schema) => {
           </div>
           <div className='form-control'>
             <TextField
-              id='filled-password-input 3'
+              id='filled-password-input'
               label='Confirm new password'
               type='password'
               autoComplete='current-password'
