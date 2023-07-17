@@ -104,7 +104,6 @@ export const EditProfile = () => {
     handleSuccess();
     resetPasswords();
   };
-
   return (
     <div className="editProfile">
       <div className="head">

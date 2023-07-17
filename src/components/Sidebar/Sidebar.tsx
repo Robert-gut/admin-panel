@@ -34,7 +34,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
   const [selectedIndex, setSelectedIndex] = React.useState('1');
   
   const setSelectedLink = (pathname: string) => {
-    const [ path] = pathname.split('/').filter(part => part !== '');
+    const [ ,path] = pathname.split('/').filter(part => part !== '');
     const routeId = routes.find(route => route.path.slice(1) ===  path)?.id || '1';
     setSelectedIndex(routeId);
   }
