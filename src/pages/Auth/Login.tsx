@@ -40,6 +40,13 @@ const Login = ({
     register,
   } = formLogin;
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      console.log('Enter key pressed');
+      // Виконайте тут бажані дії
+    }
+  };
+
   const onSubmit = async (data: ILogin) => {
 
     setLoading(true);
@@ -101,7 +108,7 @@ const Login = ({
             {...register("rememberMe")}
             label={"Remember me"}
           />
-          <Button type={"submit"} disabled={loading}>
+          <Button type={"submit"} disabled={loading} onKeyDown={handleKeyPress}>
             Login
           </Button>
           <Link className={s.link} to={"forgotPassword"}>
