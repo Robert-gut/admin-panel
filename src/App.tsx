@@ -16,6 +16,8 @@ const App = ({ isAuthenticated, setAuth }: AuthProps) => {
   console.log("auth_status", isAuthenticated);
   return (
     <Routes>
+      <Route path={"/"} element={<Navigate to={"/admin/news"} />} />
+      <Route path={"/admin"} element={<Navigate to={"/admin/news"} />} />
       <Route element={<PrivateRoutes isAuth={isAuthenticated} />}>
         <Route path="/admin" element={<Admin/>}>
           {routes
@@ -40,7 +42,6 @@ const App = ({ isAuthenticated, setAuth }: AuthProps) => {
         }
       />
       <Route path="/login/forgotPassword" element={<ForgotPassword />} />
-      <Route path={"/"} element={<Navigate to={"/admin"} />} />
       <Route path="*" element={<Nope />} />
     </Routes>
 
