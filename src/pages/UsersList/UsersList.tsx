@@ -144,7 +144,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const styleByEdit = {
+const styleByEd = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -366,7 +366,7 @@ export default function EnhancedTable() {
                     <TableCell align="center">{row.email}</TableCell>
                     <TableCell align="center">{row.phoneNumber}</TableCell>
                     <TableCell align="center">{row.role}</TableCell>
-                    <TableCell align="center" sx={styleByEdit}>
+                    <TableCell align="center" sx={styleByEd}>
                       <UpdateUserAll />
                       <IconButton
                         color="error"
