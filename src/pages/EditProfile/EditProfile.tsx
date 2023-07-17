@@ -1,56 +1,58 @@
 import "./EditProfile.scss";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { changePassword } from '../../services/api-user-service/api-user-service'
-import {logicSelectedUser, Schema, SchemaPassword} from "./typeProfiles.ts";
-import {getSelectedUser, setSelectedUser} from "../../common/utils/localStorageLogic.ts";
+import { changePassword } from "../../services/api-user-service/api-user-service";
+import { logicSelectedUser, Schema, SchemaPassword } from "./typeProfiles.ts";
+import {
+  getSelectedUser,
+  setSelectedUser,
+} from "../../common/utils/localStorageLogic.ts";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
 ) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export const EditProfile = () => {
+  const user = getSelectedUser();
 
-    const user = getSelectedUser();
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const form = useForm<Schema>({
     defaultValues: {
       name: user.Name,
       surname: user.Surname,
       email: user.Email,
-      phone: user.PhoneNumber
-    }
+      phone: user.PhoneNumber,
+    },
   });
   const { register, handleSubmit, reset, formState } = form;
-  const { errors } = formState
+  const { errors } = formState;
 
   const formPasswords = useForm<SchemaPassword>({
     defaultValues: {
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
-    }
+    },
   });
   const {
     register: registerPasswords,
     handleSubmit: handleSubmitPasswords,
     reset: resetPasswords,
     formState: formStatePasswords,
-    watch: watchPasswords
-  } = formPasswords
-  const { errors: errorsPasswords } = formStatePasswords
+    watch: watchPasswords,
+  } = formPasswords;
+  const { errors: errorsPasswords } = formStatePasswords;
 
   const { isSubmitting } = formState;
-  const [ isSubmittingPasswords, setSubmittingPasswords ] = React.useState(false)
+  const [isSubmittingPasswords, setSubmittingPasswords] = React.useState(false);
 
   // for snackbar
   const [open, setOpen] = React.useState(false);
@@ -71,96 +73,83 @@ export const EditProfile = () => {
   };
   ////////////
 
-const onSubmit = (data: Schema) => {
-  console.log("summitted", data);
-  const updatedData = {
-    ...user,
-    Name: data.name || user.Name,
-    Surname: data.surname || user.Surname,
-    Email: data.email || user.Email,
-    PhoneNumber: data.phone || user.PhoneNumber
+  const onSubmit = (data: Schema) => {
+    const updatedData = {
+      ...user,
+      Name: data.name || user.Name,
+      Surname: data.surname || user.Surname,
+      Email: data.email || user.Email,
+      PhoneNumber: data.phone || user.PhoneNumber,
+    };
+
+    handleSuccess();
+    reset();
+    setSelectedUser(updatedData);
   };
 
-  handleSuccess();
-  reset();
-  setSelectedUser(updatedData);
-};
-
-
   const onSubmitPasswords = async (data: SchemaPassword) => {
-    console.log("summitted passwords", data);
-
-    const selectedUser = localStorage.getItem('selectedUser');
+    const selectedUser = localStorage.getItem("selectedUser");
     const test = selectedUser !== null ? JSON.parse(selectedUser) : null;
 
     const userLocal: SchemaPassword = {
       userId: test.Id,
       oldPassword: data.oldPassword,
       newPassword: data.newPassword,
-      confirmPassword: data.confirmPassword
-    }
-    console.log("onSubmitPasswords  userLocal:", userLocal)
+      confirmPassword: data.confirmPassword,
+    };
 
-    await changePassword(userLocal)
+    await changePassword(userLocal);
 
     setSubmittingPasswords(true);
-    handleSuccess()
-    resetPasswords()
-  }
-
-
+    handleSuccess();
+    resetPasswords();
+  };
   return (
-    <div className='editProfile'>
-      <div className='head'>
-        <div className='text'>
+    <div className="editProfile">
+      <div className="head">
+        <div className="text">
           <h3>Complete your profile</h3>
         </div>
-        <Button onClick={() => navigate("/admin/profile")} variant='contained'>
+        <Button onClick={() => navigate("/admin/profile")} variant="contained">
           Go to your personal profile
         </Button>
       </div>
 
-      <form
-        className='form'
-        onSubmit={form.handleSubmit(onSubmit)}
-        noValidate
-      >
-        <div className='form-control'>
-        <TextField
-          id='standard-basic 1'
-          className='f2'
-          label='Name'
-          variant='standard'
+      <form className="form" onSubmit={form.handleSubmit(onSubmit)} noValidate>
+        <div className="form-control">
+          <TextField
+            id="standard-basic"
+            className="f2"
+            label="Name"
+            variant="standard"
+            {...form.register("name", {
+              required: "Name is required",
+            })}
+          />
 
-          {...form.register("name", {
-            required: "Name is required",
-          })}
-        />
-
-          <p className='errorM'>{errors.name?.message}</p>
+          <p className="errorM">{errors.name?.message}</p>
         </div>
 
-        <div className='form-control'>
+        <div className="form-control">
           <TextField
-            id='standard-basic 2'
-            className='f2'
-            label='Surname'
-            variant='standard'
+            id="standard-basic"
+            className="f2"
+            label="Surname"
+            variant="standard"
             {...form.register("surname", {
               required: "Surname is required",
             })}
-
           />
-          <p className='errorM'>{errors.surname?.message}</p>
+          <p className="errorM">{errors.surname?.message}</p>
         </div>
 
-        <div className='form-control'>
+        <div className="form-control">
           <TextField
-            id='standard-basic 3'
-            className='f3'
-            label='Email'
-            type='email'
-            variant='standard'
+            id="standard-basic"
+            className="f3"
+            label="Email"
+            type="email"
+            variant="standard"
             {...form.register("email", {
               required: "Email is required",
               pattern: {
@@ -169,34 +158,35 @@ const onSubmit = (data: Schema) => {
                 message: "Invalid email format",
               },
             })}
-
           />
-          <p className='errorM'>{errors.email?.message}</p>
+          <p className="errorM">{errors.email?.message}</p>
         </div>
 
-        <div className='form-control'>
+        <div className="form-control">
           <TextField
-            id='standard-basic 4'
-            className='f4'
-            label='Phone'
-            type='number'
-            variant='standard'
+            id="standard-basic"
+            className="f4"
+            label="Phone"
+            type="number"
+            variant="standard"
             {...form.register("phone", {
               required: "Phone is required",
               valueAsNumber: true,
               min: { value: 1, message: "Phone number must be at least 18" },
-              max: { value: 999999999999, message: "Phone number must be at most 999999999999" },
+              max: {
+                value: 999999999999,
+                message: "Phone number must be at most 999999999999",
+              },
             })}
-
           />
-          <p className='errorM'>{errors.phone?.message}</p>
+          <p className="errorM">{errors.phone?.message}</p>
         </div>
 
         <Button
-          className='btnSumbit'
-          type='submit'
-          variant='outlined'
-          size='large'
+          className="btnSumbit"
+          type="submit"
+          variant="outlined"
+          size="large"
           disabled={isSubmitting}
         >
           Submit
@@ -204,50 +194,50 @@ const onSubmit = (data: Schema) => {
       </form>
 
       <hr />
-      <div className='head'>
+      <div className="head">
         <h3>Change password</h3>
       </div>
       <form
-        className='form-passwords'
+        className="form-passwords"
         onSubmit={formPasswords.handleSubmit(onSubmitPasswords)}
-        autoComplete='off'
+        autoComplete="off"
       >
-        <div className='inputs-passwords'>
-          <div className='form-control'>
+        <div className="inputs-passwords">
+          <div className="form-control">
             <TextField
-              id='filled-password-input 1'
-              className='f5'
-              label='Old password'
-              type='password'
-              autoComplete='current-password'
-              variant='filled'
+              id="filled-password-input"
+              className="f5"
+              label="Old password"
+              type="password"
+              autoComplete="current-password"
+              variant="filled"
               {...formPasswords.register("oldPassword", {
                 required: "Password is required",
               })}
             />
-            <p className='errorM'>{errorsPasswords.oldPassword?.message}</p>
+            <p className="errorM">{errorsPasswords.oldPassword?.message}</p>
           </div>
-          <div className='form-control'>
+          <div className="form-control">
             <TextField
-              id='filled-password-input 2'
-              label='New password'
-              type='password'
-              autoComplete='current-password'
-              variant='filled'
+              id="filled-password-input"
+              label="New password"
+              type="password"
+              autoComplete="current-password"
+              variant="filled"
               {...formPasswords.register("newPassword", {
                 required: "New password is required",
                 min: { value: 8, message: "Minimum 8 characters" },
               })}
             />
-            <p className='errorM'>{errorsPasswords.newPassword?.message}</p>
+            <p className="errorM">{errorsPasswords.newPassword?.message}</p>
           </div>
-          <div className='form-control'>
+          <div className="form-control">
             <TextField
-              id='filled-password-input 3'
-              label='Confirm new password'
-              type='password'
-              autoComplete='current-password'
-              variant='filled'
+              id="filled-password-input"
+              label="Confirm new password"
+              type="password"
+              autoComplete="current-password"
+              variant="filled"
               {...formPasswords.register("confirmPassword", {
                 required: "Confirm password is required",
                 validate: (val: string) => {
@@ -257,7 +247,7 @@ const onSubmit = (data: Schema) => {
                 },
               })}
             />
-            <p className='errorM'>{errorsPasswords.confirmPassword?.message}</p>
+            <p className="errorM">{errorsPasswords.confirmPassword?.message}</p>
           </div>
         </div>
 
@@ -272,13 +262,12 @@ const onSubmit = (data: Schema) => {
             Learn more.
           </Link>
         </span>
-        <div className='btns-submits-passwords'>
+        <div className="btns-submits-passwords">
           <Button
-            className='btnSumbit'
-            type='submit'
-            variant='outlined'
+            className="btnSumbit"
+            type="submit"
+            variant="outlined"
             disabled={isSubmittingPasswords}
-
           >
             Update password
           </Button>
@@ -287,7 +276,7 @@ const onSubmit = (data: Schema) => {
       </form>
 
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity='success' sx={{ width: "100%" }}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           Edited successfully!
         </Alert>
       </Snackbar>
