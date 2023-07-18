@@ -22,7 +22,7 @@ import Modal from "@mui/material/Modal";
 import UpdateUserAll from "./UpdateUserEdit/UpdateUserEdit";
 import {
   getAllUsers,
-  deleteUser,
+  deleteUser
 } from "../../services/api-user-service/api-user-service";
 
 
@@ -33,7 +33,6 @@ interface Data {
   email: string;
   phoneNumber: number;
   role: string;
-
   edit: string;
 }
 
@@ -78,15 +77,17 @@ const headCells: HeadCell[] = [
 
 
 function createData(
+  id: string,
   name: string,
   surname: string,
   email: string,
   phoneNumber: number,
   role: string,
-  edit?: ReactNode,
+  edit: string,
 
 ): Data {
   return {
+    id,
     name,
     surname,
     email,
@@ -245,18 +246,6 @@ const EnhancedTableToolbar = (props: EnhancedTableProps) => {
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 export default function EnhancedTable() {
 
   const [open, setOpen] = useState(false);
@@ -265,14 +254,14 @@ export default function EnhancedTable() {
   const [deleteUserId, setDeleteUserId] = useState<string>("");
 
   const handleDeleteUser = async (deleteUserId: string) => {
+    
     try {
       const updatedUsersList = usersList.filter(
         (user) => user.id !== deleteUserId
       );
+      
       setUsersList(updatedUsersList);
-
       await deleteUser(deleteUserId);
-
       alert(`Користувач успішно видалений.`);
     } catch (error) {
       console.error(error);
@@ -324,11 +313,11 @@ export default function EnhancedTable() {
     if (event.target.checked) {
 
       const newSelecteds = usersList.map((user) => user.id);
-
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
+    
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -382,9 +371,9 @@ export default function EnhancedTable() {
                     <TableCell align="center">{row.phoneNumber}</TableCell>
                     <TableCell align="center">{row.role}</TableCell>
                     <TableCell align="center">
-                      {showUpdateUserAll && <UpdateUserAll />}
+                      {showUpdateUserAll && <UpdateUserAll row={row.id}/>}
                       <IconButton
-                        onClick={() => setShowUpdateUserAll(!showUpdateUserAll)}
+                        onClick={() => setShowUpdateUserAll(true)}
                       >
                         <SettingsIcon />
                       </IconButton>

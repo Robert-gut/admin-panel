@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from "react";
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,6 +12,19 @@ import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Box from "@mui/material/Box";
 
+import {
+  getAllUsers
+} from "../../../services/api-user-service/api-user-service";
+
+interface Data {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: number;
+  role: string;
+}
+
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -22,7 +35,11 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide() {
+export default function AlertDialogSlide(user:any) {
+
+  // console.log('props', user);
+  
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -54,7 +71,7 @@ export default function AlertDialogSlide() {
       >
         <DialogTitle>{"Редагування данних"}</DialogTitle>
         <DialogContent>
-            <TextField/>
+            <TextField user={user}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} type='submit' color="error">Відмінити</Button>
