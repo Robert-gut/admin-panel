@@ -1,5 +1,4 @@
-
-import React, {ReactNode, useEffect, useState} from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -24,7 +23,6 @@ import {
   getAllUsers,
   deleteUser,
 } from "../../services/api-user-service/api-user-service";
-
 
 interface Data {
   id: string;
@@ -76,15 +74,13 @@ const headCells: HeadCell[] = [
   },
 ];
 
-
 function createData(
   name: string,
   surname: string,
   email: string,
   phoneNumber: number,
   role: string,
-  edit?: ReactNode,
-
+  edit?: ReactNode
 ): Data {
   return {
     name,
@@ -95,7 +91,6 @@ function createData(
     edit,
   };
 }
-
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -148,6 +143,11 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+};
+const styleByEd = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 };
 
 function EnhancedTableHead(props: EnhancedTableProps) {
@@ -245,20 +245,7 @@ const EnhancedTableToolbar = (props: EnhancedTableProps) => {
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 export default function EnhancedTable() {
-
   const [open, setOpen] = useState(false);
   const [showUpdateUserAll, setShowUpdateUserAll] = useState(false);
   const [usersList, setUsersList] = useState<Data[]>([]);
@@ -322,7 +309,6 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-
       const newSelecteds = usersList.map((user) => user.id);
 
       setSelected(newSelecteds);
@@ -344,7 +330,6 @@ export default function EnhancedTable() {
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - usersList.length) : 0;
-
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -381,13 +366,8 @@ export default function EnhancedTable() {
                     <TableCell align="center">{row.email}</TableCell>
                     <TableCell align="center">{row.phoneNumber}</TableCell>
                     <TableCell align="center">{row.role}</TableCell>
-                    <TableCell align="center">
-                      {showUpdateUserAll && <UpdateUserAll />}
-                      <IconButton
-                        onClick={() => setShowUpdateUserAll(!showUpdateUserAll)}
-                      >
-                        <SettingsIcon />
-                      </IconButton>
+                    <TableCell align="center" sx={styleByEd}>
+                      <UpdateUserAll />
                       <IconButton
                         color="error"
                         onClick={() => handleOpen(row.id)}

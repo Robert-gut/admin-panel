@@ -11,3 +11,8 @@
   border-bottom: 2px solid black;
   border-top: 2px solid black;
 }
+.update {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
