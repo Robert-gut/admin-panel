@@ -40,10 +40,9 @@ const Login = ({
     register,
   } = formLogin;
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      console.log('Enter key pressed');
-      // Виконайте тут бажані дії
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      formLogin.handleSubmit(onSubmit)();
     }
   };
 
@@ -69,7 +68,7 @@ const Login = ({
     setLoading(false);
   };
   return (
-    <div className={s.loginPageWrapper}>
+    <div className={s.loginPageWrapper} onKeyPress={handleKeyPress}>
       <span className={s.circle}></span>
       <FormProvider {...formLogin}>
         <form
@@ -108,7 +107,7 @@ const Login = ({
             {...register("rememberMe")}
             label={"Remember me"}
           />
-          <Button type={"submit"} disabled={loading} onKeyDown={handleKeyPress}>
+          <Button type={"submit"} disabled={loading}>
             Login
           </Button>
           <Link className={s.link} to={"forgotPassword"}>
