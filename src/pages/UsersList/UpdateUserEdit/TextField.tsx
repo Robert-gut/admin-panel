@@ -4,36 +4,38 @@ import { Container, Grid, TextField } from '@mui/material';
 import { useState, useEffect } from "react";
 
 import {
-  getAllUsers,
   updateUser
 } from "../../../services/api-user-service/api-user-service";
 
 
 export default function FormComponent(user: any) {
   const { handleSubmit, register } = useForm();
-  const [foundUser, setFoundUser] = useState([]);
+  // const [foundUser, setFoundUser] = useState([]);
 
   const onSubmit = (data: any) => {
     console.log(data);
+    
   };
 
-  const userId = user;
-  console.log("userId.user:", userId.user.row)
+  let userId = user;
+  let userValue = userId.user.row;
+  console.log("FormComponent  userValue:", userValue)
+  console.log("userId.user:", userValue.name)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAllUsers(0, 0, true);
-        setFoundUser(result.response.payload);
-        const userEdit = foundUser.filter((u) => u.id === userId?.user?.row);
-        console.log("foundUser:", userEdit);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const result = await getAllUsers(0, 0, true);
+  //       setFoundUser(result.response.payload);
+  //       const userEdit = foundUser.filter((u) => u.id === userId?.user?.row);
+  //       console.log("foundUser:", userEdit);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <Container maxWidth="md">
@@ -48,7 +50,7 @@ export default function FormComponent(user: any) {
               <TextField
                 label="Name"
                 id="standard-size-small"
-                defaultValue={''}
+                defaultValue={userValue.name}
                 size="small"
                 variant="standard"
                 sx={{
@@ -60,7 +62,7 @@ export default function FormComponent(user: any) {
               <TextField
                 label="Surname"
                 id="standard-size-normal"
-                defaultValue={''}
+                defaultValue={userValue.surname}
                 variant="standard"
                 sx={{
                   width: '100%',
@@ -71,7 +73,7 @@ export default function FormComponent(user: any) {
               <TextField
                 label="Email"
                 id="standard-size-normal"
-                defaultValue={''}
+                defaultValue={userValue.email}
                 variant="standard"
                 sx={{
                   width: '100%',
@@ -82,7 +84,7 @@ export default function FormComponent(user: any) {
               <TextField
                 label="Phone Number"
                 id="standard-size-normal"
-                defaultValue={''}
+                defaultValue={userValue.phoneNumber}
                 variant="standard"
                 sx={{
                   width: '100%',
@@ -93,7 +95,7 @@ export default function FormComponent(user: any) {
               <TextField
                 label="Role"
                 id="standard-size-normal"
-                defaultValue={''}
+                defaultValue={userValue.role}
                 variant="standard"
                 sx={{
                   width: '100%',

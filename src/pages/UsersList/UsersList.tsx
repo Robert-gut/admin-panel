@@ -371,7 +371,7 @@ export default function EnhancedTable() {
                     <TableCell align="center">{row.phoneNumber}</TableCell>
                     <TableCell align="center">{row.role}</TableCell>
                     <TableCell align="center">
-                      {showUpdateUserAll && <UpdateUserAll row={row.id}/>}
+                      {showUpdateUserAll && <UpdateUserAll row={row}/>}
                       <IconButton
                         onClick={() => setShowUpdateUserAll(true)}
                       >
