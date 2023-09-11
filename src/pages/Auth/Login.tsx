@@ -51,7 +51,7 @@ const Login = ({
     setLoading(true);
     const { response } = await login(data);
 
-    if (response.isSuccess) {
+    if (response) {
       setAccessToken(response.accessToken);
       setRefreshToken(response.refreshToken);
       const activeUser = jwtDecode(response.accessToken);

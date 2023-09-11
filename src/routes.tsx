@@ -32,7 +32,7 @@ export const routes: IAdminRoute[] = [
     component: <News/>,
     layout: '/admin',
     id: '1',
-    role: ['Users', 'Administrators'],
+    role: ['USER', 'ADMINISTRATOR'],
   },
   {
     path: "/profile",
@@ -41,7 +41,7 @@ export const routes: IAdminRoute[] = [
     component: <Profile />,
     layout: "/admin",
     id: "2",
-    role: ['Users', 'Administrators'],
+    role: ['USER', 'ADMINISTRATOR'],
   },
   {
     path: "/edit",
@@ -50,7 +50,7 @@ export const routes: IAdminRoute[] = [
     component: <EditProfile />,
     layout: "/admin",
     id: "3",
-    role: ['Users', 'Administrators'],
+    role: ['USER', 'ADMINISTRATOR'],
   },
   {
     path: '/user-list',
@@ -59,7 +59,7 @@ export const routes: IAdminRoute[] = [
     component: <Userslist/>,
     layout: '/admin',
     id: '4',
-    role: ['Administrators'],
+    role: ['ADMINISTRATOR'],
   },
   {
     path: '/add-new-user',
@@ -68,6 +68,6 @@ export const routes: IAdminRoute[] = [
     component: <AddNewUser/>,
     layout: '/admin',
     id: '5',
-    role: ['Administrators'],
+    role: ['ADMINISTRATOR'],
   },
 ];

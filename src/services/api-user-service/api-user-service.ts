@@ -27,7 +27,7 @@ const instance: AxiosInstance = axios.create({
     //step URL
     // baseURL: "http://10.7.201.111:5035/api/User",
     //home URL
-    baseURL: 'http://194.44.93.225:5001/api/User',
+    baseURL: 'http://localhost:5000/api/User',
 
     headers: {
         "Content-Type": "application/json",
@@ -49,9 +49,12 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (res: AxiosResponse): AxiosResponse => {
+        console.log(res);
         return res;
     },
     async (err): Promise<AxiosError> => {
+        console.log(err.response.data.message);
+        
         // const error = err as AxiosError;
         const originalConfig = err.config;
         // Validation
@@ -93,11 +96,6 @@ async function refreshAccessToken(): Promise<AxiosResponse> {
         refreshToken: getRefreshToken(),
     })
 
-    const response = await instance.post("/RefreshToken", {
-        token: getAccessToken(),
-        refreshToken: getRefreshToken(),
-    });
-    return response;
 }
 
 // const responseBody: any = (response: any) => response.data;
@@ -118,12 +116,12 @@ const User = {
     register: (user: IRegisterUser) => requests.post<IRegisterUser>('/register', user),
     login: (user: ILogin) => requests.post<ILogin>('/login', user),
     forgotPassword: (email: string) => requests.post('/ForgotPassword', email),
-    getAllUsers: (start: number, end: number, isAll = false): Promise<IGetAllUsersResponse> => {
+    getAllUsers: (): Promise<IGetAllUsersResponse> => {
         return requests.get(
-            '/GetAllUsers?start=' + start + '&end=' + end + '&isAll=' + isAll
+            '/GetAllUsers'
         )
     },
-    logout: (userId: string) => requests.get('/logout?userId=' + userId),
+    logout: (userId: string) => requests.get('/logout/' + userId),
     changePassword: (user: IChangePassword) => requests.post('/ChangePassword', user),
     updateProfile: (user: IUpdateProfile) => requests.post('/updateProfile', user),
     updateUser: (user: IUpdateUser) => requests.post('/UpdateUser', user),
@@ -171,8 +169,8 @@ export async function forgotPassword(email: string): Promise<IResponseBase> {
     return data;
 }
 
-export async function getAllUsers(start: number, end: number, isAll = false): Promise<IGetAllUsersResponse> {
-    const data = await User.getAllUsers(start, end, isAll)
+export async function getAllUsers(): Promise<IGetAllUsersResponse> {
+    const data = await User.getAllUsers()
         .then((response) => {
             return {
                 response

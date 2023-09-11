@@ -89,11 +89,10 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    const { Id } = getSelectedUser();
-    console.log("id: ", Id);
+    const { id } = getSelectedUser();
 
     // removeSelectedUser()
-    logout(Id)
+    logout(id)
     removeTokens();
     handleMenuClose();
     window.location.reload();

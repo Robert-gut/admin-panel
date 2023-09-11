@@ -43,7 +43,7 @@ export default function Sidebar({ routes }: { routes: IAdminRoute[] }) {
 
   const selectedUser = localStorage.getItem('selectedUser');
   const userOnline = selectedUser !== null ? JSON.parse(selectedUser) : null;
-  const filteredRoutes = routes?.filter(route => route?.role?.includes(userOnline?.role));
+  const filteredRoutes = routes?.filter(route => route?.role?.includes(userOnline?.roles[0]));
 
 
   useEffect(() => {
