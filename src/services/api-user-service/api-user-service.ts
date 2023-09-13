@@ -49,7 +49,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (res: AxiosResponse): AxiosResponse => {
-        console.log(res);
+        console.log(res.data.message);
         return res;
     },
     async (err): Promise<AxiosError> => {

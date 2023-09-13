@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { changePassword } from "../../services/api-user-service/api-user-service";
+import { changePassword, updateProfile } from "../../services/api-user-service/api-user-service";
 import { logicSelectedUser, Schema, SchemaPassword } from "./typeProfiles.ts";
 import {
   getSelectedUser,
@@ -26,10 +26,10 @@ export const EditProfile = () => {
   const navigate = useNavigate();
   const form = useForm<Schema>({
     defaultValues: {
-      name: user.Name,
-      surname: user.Surname,
-      email: user.Email,
-      phone: user.PhoneNumber,
+      name: user.firstName,
+      surname: user.lastName,
+      email: user.email,
+      phone: user.phone,
     },
   });
   const { register, handleSubmit, reset, formState } = form;
@@ -37,9 +37,9 @@ export const EditProfile = () => {
 
   const formPasswords = useForm<SchemaPassword>({
     defaultValues: {
-      oldPassword: "",
+      currentPassword: "",
       newPassword: "",
-      confirmPassword: "",
+      confirmNewPassword: "",
     },
   });
   const {
@@ -76,28 +76,31 @@ export const EditProfile = () => {
   const onSubmit = (data: Schema) => {
     const updatedData = {
       ...user,
-      Name: data.name || user.Name,
-      Surname: data.surname || user.Surname,
-      Email: data.email || user.Email,
-      PhoneNumber: data.phone || user.PhoneNumber,
+      firstName: data.firstName || user.firstName,
+      lastName: data.lastName || user.lastName,
+      email: data.email || user.email,
+      phone: data.phone || user.phone,
     };
 
     handleSuccess();
     reset();
     setSelectedUser(updatedData);
+    console.log(updatedData);
+    
+    updateProfile(updatedData)
   };
 
   const onSubmitPasswords = async (data: SchemaPassword) => {
+    
     const selectedUser = localStorage.getItem("selectedUser");
-    const test = selectedUser !== null ? JSON.parse(selectedUser) : null;
-
+    const user = selectedUser !== null ? JSON.parse(selectedUser) : null;
+    
     const userLocal: SchemaPassword = {
-      userId: test.Id,
-      oldPassword: data.oldPassword,
+      userId: user.id,
+      currentPassword: data.currentPassword,
       newPassword: data.newPassword,
-      confirmPassword: data.confirmPassword,
+      confirmNewPassword: data.confirmNewPassword,
     };
-
     await changePassword(userLocal);
 
     setSubmittingPasswords(true);
@@ -215,11 +218,11 @@ export const EditProfile = () => {
               type='password'
               autoComplete='current-password'
               variant='filled'
-              {...formPasswords.register("oldPassword", {
+              {...formPasswords.register("currentPassword", {
                 required: "Password is required",
               })}
             />
-            <p className="errorM">{errorsPasswords.oldPassword?.message}</p>
+            <p className="errorM">{errorsPasswords.currentPassword?.message}</p>
           </div>
           <div className="form-control">
             <TextField
@@ -242,16 +245,16 @@ export const EditProfile = () => {
               type='password'
               autoComplete='current-password'
               variant='filled'
-              {...formPasswords.register("confirmPassword", {
+              {...formPasswords.register("confirmNewPassword", {
                 required: "Confirm password is required",
                 validate: (val: string) => {
-                  if (watchPasswords("newPassword") != val) {
+                  if (watchPasswords("confirmNewPassword") != val) {
                     return "Your passwords do no match";
                   }
                 },
               })}
             />
-            <p className="errorM">{errorsPasswords.confirmPassword?.message}</p>
+            <p className="errorM">{errorsPasswords.confirmNewPassword?.message}</p>
           </div>
         </div>
 

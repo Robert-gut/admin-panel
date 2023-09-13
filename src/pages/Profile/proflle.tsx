@@ -30,7 +30,7 @@ export default function Profile() {
   return (
     <div className={"box"}>
       <div className="card-container">
-        <span className="pro">{user?.role}</span>
+        <span className="pro">{user?.roles[0]}</span>
         <div className={"av"}>
           <Stack direction="row" spacing={2}>
             <Avatar
@@ -42,7 +42,7 @@ export default function Profile() {
           </Stack>
         </div>
         <h3>
-          {user?.Name} {user?.Surname}
+          {user?.firstName} {user?.lastName}
         </h3>
         <h6>Ukraine</h6>
         <p>
@@ -60,11 +60,12 @@ export default function Profile() {
         <div className="skills">
           <h6>Info</h6>
           <ul>
-            <li>Email: {user?.Email}</li>
-            <li>Phone: {user?.PhoneNumber}</li>
-            <li>Name: {user?.Name}</li>
-            <li>Surname: {user?.Surname}</li>
-            <li>Role: {user?.role}</li>
+            <li>Email: {user?.email}</li>
+            <li>Phone: {user?.phone}</li>
+            <li>Name: {user?.firstName}</li>
+            <li>Surname: {user?.lastName}</li>
+            <li>Role: {user?.roles[0]}</li>
+            <li>Sex: {user?.sex}</li>
           </ul>
         </div>
       </div>

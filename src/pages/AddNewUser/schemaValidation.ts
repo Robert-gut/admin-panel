@@ -1,17 +1,23 @@
 import * as yup from "yup";
 
 export const schemaValidationAddUser = yup.object({
-  name: yup
+  firstName: yup
     .string()
     .required("The field is required")
     .min(2, "Minimum 2 characters!")
     .max(30, "Maximum 2 characters"),
-  surname: yup
+  lastName: yup
     .string()
     .required("The field is required")
     .min(2, "Minimum 2 characters!")
-    .max(30, "Maximum 2 characters"),
+    .max(30, "Maximum 30 characters"),
+  phone: yup
+    .string()
+    .required("The field is required")
+    .min(2, "Minimum 2 characters!")
+    .max(30, "Maximum 30 characters"),
   role: yup.string().required("The field is required"),
+  sex: yup.string().required("The field is required"),
   email: yup
     .string()
     .email("Incorrect email")

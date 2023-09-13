@@ -35,8 +35,10 @@ interface IUser {
 // Requests
 
 interface IRegisterUser {
-  name?: string | null;
-  surname?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  sex?: string | null;
+  phone?: string | null;
   email?: string | null;
   password?: string | null;
   confirmPassword?: string | null;
@@ -59,9 +61,9 @@ interface IUpdateProfile {
 
 interface IChangePassword {
   userId?: string | null;
-  oldPassword?: string | null;
+  currentPassword?: string | null;
   newPassword?: string | null;
-  confirmPassword?: string | null;
+  confirmNewPassword?: string | null;
 }
 
 interface IUpdateUser extends IUpdateProfile {

@@ -8,9 +8,9 @@
 
   export type SchemaPassword = {
     userId: string
-    oldPassword: string
+    currentPassword: string
     newPassword: string
-    confirmPassword: string
+    confirmNewPassword: string
   }
 
 export interface logicSelectedUser {
