@@ -26,8 +26,8 @@ export const EditProfile = () => {
   const navigate = useNavigate();
   const form = useForm<Schema>({
     defaultValues: {
-      name: user.firstName,
-      surname: user.lastName,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       phone: user.phone,
     },
@@ -127,27 +127,27 @@ export const EditProfile = () => {
         <TextField
           id='name-basic'
           className='f2'
-          label='Name'
+          label='firstName'
           variant='standard'
 
-          {...form.register("name", {
-            required: "Name is required",
+          {...form.register("firstName", {
+            required: "firstName is required",
           })}
         />
-          <p className="errorM">{errors.name?.message}</p>
+          <p className="errorM">{errors.firstName?.message}</p>
         </div>
 
         <div className="form-control">
           <TextField
             id='surname-basic'
             className='f2'
-            label='Surname'
+            label='lastName'
             variant='standard'
-            {...form.register("surname", {
-              required: "Surname is required",
+            {...form.register("lastName", {
+              required: "lastName is required",
             })}
           />
-          <p className="errorM">{errors.surname?.message}</p>
+          <p className="errorM">{errors.lastName?.message}</p>
         </div>
 
         <div className="form-control">

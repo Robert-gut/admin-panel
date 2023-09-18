@@ -1,7 +1,6 @@
   export type Schema = {  //* /api/User/UpdateProfile
-    // id: string
-    name: string
-    surname: string
+    firstName: string
+    lastName: string
     email: string
     phone: number
   }
