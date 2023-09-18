@@ -6,6 +6,7 @@ import { Button } from "@mui/joy";
 import { Link } from "react-router-dom";
 import InputGroup from "../../../components/InputGroup/InnputGroup";
 import { IForgotPassword } from "../types.ts";
+import { forgotPassword } from "../../../services/api-user-service/api-user-service";
 
 const defaultValues = {
   email: "",
@@ -21,6 +22,7 @@ const ForgotPassword = () => {
   } = formForgotPassword;
   const onSubmit = (data: IForgotPassword) => {
     console.log(data);
+    forgotPassword(data)
   };
   return (
     <div className={s.loginPageWrapper}>

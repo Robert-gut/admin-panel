@@ -26,27 +26,27 @@ import {
 
 interface Data {
   id: string;
-  name: string;
-  surname: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phoneNumber: number;
-  role: string;
+  phone: number;
+  roles: string;
 
   edit: string;
 }
 
 const headCells: HeadCell[] = [
   {
-    id: "name",
+    id: "firstName",
     numeric: false,
     disablePadding: true,
-    label: "Name",
+    label: "First Name",
   },
   {
-    id: "surname",
+    id: "lastName",
     numeric: false,
     disablePadding: false,
-    label: "Surname",
+    label: "Last Name",
   },
   {
     id: "email",
@@ -55,16 +55,16 @@ const headCells: HeadCell[] = [
     label: "Email",
   },
   {
-    id: "phoneNumber",
+    id: "phone",
     numeric: true,
     disablePadding: false,
     label: "Phone Number",
   },
   {
-    id: "role",
+    id: "roles",
     numeric: false,
     disablePadding: false,
-    label: "Role",
+    label: "Roles",
   },
   {
     id: "edit",
@@ -75,19 +75,19 @@ const headCells: HeadCell[] = [
 ];
 
 function createData(
-  name: string,
-  surname: string,
+  firstName: string,
+  lastName: string,
   email: string,
-  phoneNumber: number,
-  role: string,
+  phone: number,
+  roles: string,
   edit?: ReactNode
 ): Data {
   return {
-    name,
-    surname,
+    firstName,
+    lastName,
     email,
-    phoneNumber,
-    role,
+    phone,
+    roles,
     edit,
   };
 }
@@ -252,6 +252,8 @@ export default function EnhancedTable() {
   const [deleteUserId, setDeleteUserId] = useState<string>("");
 
   const handleDeleteUser = async (deleteUserId: string) => {
+    console.log(deleteUserId);
+    
     try {
       const updatedUsersList = usersList.filter(
         (user) => user.id !== deleteUserId
@@ -272,8 +274,8 @@ export default function EnhancedTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getAllUsers(0, 0, true);
-        setUsersList(result.response.payload);
+        const result = await getAllUsers();
+        setUsersList(result.response);
       } catch (error) {
         console.error(error);
       }
@@ -289,7 +291,7 @@ export default function EnhancedTable() {
 
   const handleClose = () => {
     setOpen(false);
-    setDeleteUserId("");
+    setDeleteUserId(deleteUserId);
   };
 
   const [order, setOrder] = useState<Order>("asc");
@@ -360,17 +362,17 @@ export default function EnhancedTable() {
               {stableSort(usersList, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
-                  <TableRow className="table" key={row.id}>
-                    <TableCell align="center">{row.name}</TableCell>
-                    <TableCell align="center">{row.surname}</TableCell>
+                  <TableRow className="table" key={row._id}>
+                    <TableCell align="center">{row.firstName}</TableCell>
+                    <TableCell align="center">{row.lastName}</TableCell>
                     <TableCell align="center">{row.email}</TableCell>
-                    <TableCell align="center">{row.phoneNumber}</TableCell>
-                    <TableCell align="center">{row.role}</TableCell>
+                    <TableCell align="center">{row.phone}</TableCell>
+                    <TableCell align="center">{row.roles}</TableCell>
                     <TableCell align="center" sx={styleByEd}>
                       <UpdateUserAll />
                       <IconButton
                         color="error"
-                        onClick={() => handleOpen(row.id)}
+                        onClick={() => handleOpen(row._id)}
                       >
                         <DeleteIcon />
                       </IconButton>

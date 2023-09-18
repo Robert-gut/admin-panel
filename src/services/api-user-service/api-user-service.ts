@@ -22,7 +22,7 @@ import {
     setAccessToken,
     setRefreshToken
 } from "../../common/utils/localStorageLogic.ts";
-
+import { IForgotPassword } from "../../pages/Auth/types"
 const instance: AxiosInstance = axios.create({
     //step URL
     // baseURL: "http://10.7.201.111:5035/api/User",
@@ -115,7 +115,7 @@ const requests = {
 const User = {
     register: (user: IRegisterUser) => requests.post<IRegisterUser>('/register', user),
     login: (user: ILogin) => requests.post<ILogin>('/login', user),
-    forgotPassword: (email: string) => requests.post('/ForgotPassword', email),
+    forgotPassword: (email: IForgotPassword) => requests.post('/ForgotPassword', email),
     getAllUsers: (): Promise<IGetAllUsersResponse> => {
         return requests.get(
             '/GetAllUsers'
@@ -125,7 +125,7 @@ const User = {
     changePassword: (user: IChangePassword) => requests.post('/ChangePassword', user),
     updateProfile: (user: IUpdateProfile) => requests.post('/updateProfile', user),
     updateUser: (user: IUpdateUser) => requests.post('/UpdateUser', user),
-    deleteUser: (id: string) => requests.post('/DeleteUser', id)
+    deleteUser: (id: string) => requests.del('/DeleteUser/' + id)
 }
 
 
@@ -156,7 +156,7 @@ export async function login(user: ILogin): Promise<IResponseBase> {
     return data;
 }
 
-export async function forgotPassword(email: string): Promise<IResponseBase> {
+export async function forgotPassword(email: IForgotPassword): Promise<IResponseBase> {
     const data = await User.forgotPassword(email)
         .then(response => {
             return {
