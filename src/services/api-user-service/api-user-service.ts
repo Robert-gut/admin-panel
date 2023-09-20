@@ -27,7 +27,8 @@ const instance: AxiosInstance = axios.create({
     //step URL
     // baseURL: "http://10.7.201.111:5035/api/User",
     //home URL
-    baseURL: 'http://localhost:5000/api/User',
+    // baseURL: 'http://localhost:5000/api/User',
+    baseURL: 'http://3.125.43.47:5000/api/User',
 
     headers: {
         "Content-Type": "application/json",
@@ -242,6 +243,7 @@ export async function updateUser(user: IUpdateUser): Promise<IResponseBase> {
 export async function deleteUser(id: string): Promise<IResponseBase> {
     const data = await User.deleteUser(id)
         .then(response => {
+            console.log(response);
             return {
                 response,
             };
